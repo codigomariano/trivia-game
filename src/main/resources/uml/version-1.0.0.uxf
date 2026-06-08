@@ -1,0 +1,71 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>420</x><y>460</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
+Usuario
+--
+- email: String
+- username: String
+- fechaCreacion: LocalDateTime
+- nombreCompleto: String
+
+--
++ Usuario(String)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>460</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
+Imagen
+--
+- nombre: String
+- contentType: String
+- contenido: byte[]
+
+--
++ Imagen(String, byte[])
++ Imagen(String, String, byte[])</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>530</y><w>230</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+- imagen</panel_attributes><additional_attributes>10;20;210;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>460</y><w>250</w><h>190</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
+/Pregunta/
+--
+_- DEFAULT_PUNTOS: int = 100_
+- codigo: String
+- texto: String
+- puntos: int
+
+--
++ Pregunta(String, String, Categoria)
++ Pregunta(String, String, Categoria, int)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1150</x><y>460</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;enum&gt;&gt;
+Categoria
+--
+_+ GEOGRAFIA_
+_+ ARTE_Y_LITERATURA_
+_+ ENTRETENIMIENTO_
+_+ CIENCIA_
+_+ DEPORTES_
+_+ HISTORIA_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1030</x><y>540</y><w>140</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+- categoria</panel_attributes><additional_attributes>120;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>730</y><w>310</w><h>190</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
+PreguntaBinaria
+--
+- correcta: boolean
+
+--
++ PreguntaBinaria(String, String, Categoria, boolean)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>940</x><y>730</y><w>270</w><h>190</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
+PreguntaMultiple
+--
+
+--
++ PreguntaMultiple(String, String, Categoria)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>640</y><w>180</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;160;50;160;90</additional_attributes></element><element><id>Relation</id><coordinates><x>730</x><y>640</y><w>190</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>170;10;170;50;10;50;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1360</x><y>730</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
+Respuesta
+--
+- texto: String
+- correcta: boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1650</x><y>730</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;enum&gt;&gt;
+OpcionMultiple
+--
+_+ A_
+_+ B_
+_+ C_
+_+ D_</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1560</x><y>800</y><w>110</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+- opcion</panel_attributes><additional_attributes>90;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1200</x><y>810</y><w>180</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+- respuestas
+m1=1..n</panel_attributes><additional_attributes>160;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>620</x><y>140</y><w>210</w><h>190</h></coordinates><panel_attributes>&lt;&lt;class&gt;&gt;
+/Persistible/
+--
+-id: Long 
+
+--
++ getId(): Long</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>100</x><y>320</y><w>640</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>620;10;620;50;10;50;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>320</y><w>230</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>210;10;210;50;10;50;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>320</y><w>210</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;190;50;190;140</additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>320</y><w>780</w><h>430</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;760;50;760;410</additional_attributes></element></diagram>
