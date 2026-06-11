@@ -3,8 +3,9 @@ package ar.com.codigomariano.domain;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+import ar.com.codigomariano.helpers.Utils;
+
 public class Usuario extends Persistible {
-	public static final String DEFAULT_USERNAME_PREFIX = "user";
 	private LocalDateTime fechaCreacion;
 	private String username;
 	private String email;
@@ -13,18 +14,12 @@ public class Usuario extends Persistible {
 	
 	
 	public Usuario(String email) {
-		this(generateDefaultUsername(), email);
+		this(Utils.generarUsername(), email);
 	}
 	
 	public Usuario(String username, String email) {
 		this.fechaCreacion = LocalDateTime.now();
 		this.username = username;
 		this.email = email;
-	}
-	
-	
-	private static String generateDefaultUsername() {
-		Random r = new Random(System.currentTimeMillis());
-		return DEFAULT_USERNAME_PREFIX + r.nextInt();
 	}
 }
