@@ -19,6 +19,16 @@ public class ValidationUtils {
 	
 	
 	/**
+	 * Verifica que un texto no esté vacío.
+	 * Se considera vacío cuando el valor es nulo o cuando
+	 * contiene únicamente espacios en blanco.
+	 */
+	public static boolean isEmpty(String texto) {
+		return texto == null || texto.isBlank();
+	}
+	
+	
+	/**
 	 * Verifica que la longitud del texto sea mayor que la cantidad
 	 * de caracteres indicada.
 	 *

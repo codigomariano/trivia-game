@@ -22,9 +22,7 @@ public class App {
 				email = leerOpcion(sc, "Ingres un nuevo email");
 			}
 			
-			Usuario usuario = new Usuario(email);
-			usuarios.put(email.toLowerCase(), usuario);
-			System.out.print("== Usuario registrado! ==");
+			agregarUsuario(email, usuarios);
 			
 			opcion = solicitarOpcionDeMenu(sc);
 		}
@@ -33,6 +31,21 @@ public class App {
 		sc.close();
 	}
 
+	
+	private static void agregarUsuario(String email, Map<String, Usuario> usuarios) {
+		try {
+			
+			Usuario usuario = new Usuario(email);
+			usuarios.put(email.toLowerCase(), usuario);
+			System.out.print("== Usuario registrado! ==");
+			
+			usuarios.put(email, usuario);
+			
+		}catch(IllegalArgumentException ex) {
+			System.out.print("== Usuario NO registrado! ==");
+			System.out.print("== El usuario no se pudo registrar debido a "+ex.getMessage());
+		}
+	}
 	
 	private static int solicitarOpcionDeMenu(Scanner sc) {
 		mostrarMenu();

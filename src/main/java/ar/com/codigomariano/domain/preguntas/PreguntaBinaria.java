@@ -14,4 +14,12 @@ public class PreguntaBinaria extends Pregunta {
 		super(codigo, texto, categoria);
 		this.correcta = correcta;
 	}
+
+	public boolean isCorrecta() {
+		return correcta;
+	}
+
+	public void setCorrecta(boolean correcta) {
+		this.correcta = correcta;
+	}
 }

@@ -1,5 +1,6 @@
 package ar.com.codigomariano.domain.preguntas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.codigomariano.domain.Respuesta;
@@ -11,5 +12,6 @@ public class PreguntaMultiple extends Pregunta {
 	
 	public PreguntaMultiple(String codigo, String texto, Categoria categoria) {
 		super(codigo, texto, categoria);
+		this.respuestas = new ArrayList<Respuesta>();
 	}	
 }
