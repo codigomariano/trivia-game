@@ -6,4 +6,7 @@
   <artifactId>trivia-game</artifactId>
   <version>1.0.0</version>
   
+  <name>CODIGOMARIANO Game</name>
+  <description>Juego de Preguntas y Respuestas evolutivo de los programas CODIGO MARIANO</description>
+  <url>https://www.codigomariano.com.ar</url>
  </project>
