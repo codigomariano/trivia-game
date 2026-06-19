@@ -16,7 +16,7 @@ public class Usuario extends Persistible {
 	public static final int EMAIL_MAX_LENGTH = 75;
 	public static final int USERNAME_MIN_LENGTH = 4;
 	public static final int USERNAME_MAX_LENGTH = 50;
-	public static final int FULL_NAME_MAX_LENGTH = 50;
+	public static final int FULL_NAME_MAX_LENGTH = 100;
 	
 	private LocalDateTime fechaCreacion;
 	private String email;
