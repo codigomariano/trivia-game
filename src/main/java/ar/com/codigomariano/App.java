@@ -1,79 +1,13 @@
 package ar.com.codigomariano;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import ar.com.codigomariano.domain.Usuario;
-
+@SpringBootApplication
 public class App {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		Map<String, Usuario> usuarios = new HashMap<String, Usuario>();
-		
-		int opcion = solicitarOpcionDeMenu(sc);
-		
-		while(opcion != 2) {
-			String email = leerOpcion(sc, "Ingrese un email");
-			
-			while(usuarios.containsKey(email.toLowerCase())) {
-				System.out.println("El mail ingresado ya se encuentra registrado. Intente con otro!");
-				email = leerOpcion(sc, "Ingres un nuevo email");
-			}
-			
-			agregarUsuario(email, usuarios);
-			
-			opcion = solicitarOpcionDeMenu(sc);
-		}
-
-		System.out.println("La cantidad de usuarios registrados: " + usuarios.size());
-		sc.close();
+		SpringApplication.run(App.class, args);
 	}
 
-	
-	private static void agregarUsuario(String email, Map<String, Usuario> usuarios) {
-		try {
-			
-			Usuario usuario = new Usuario(email);
-			usuarios.put(email.toLowerCase(), usuario);
-			System.out.print("== Usuario registrado! ==");
-			
-			usuarios.put(email, usuario);
-			
-		}catch(IllegalArgumentException ex) {
-			System.out.print("== Usuario NO registrado! ==");
-			System.out.print("== El usuario no se pudo registrar debido a "+ex.getMessage());
-		}
-	}
-	
-	private static int solicitarOpcionDeMenu(Scanner sc) {
-		mostrarMenu();
-		int opcion = leerOpcion(sc);
-		
-		return opcion;
-	}
-	
-	private static void mostrarMenu() {
-		System.out.println("==================");
-		System.out.println("1. Alta de usuario");
-		System.out.println("2. Salir");
-		System.out.println("==================");
-	}
-	
-	private static int leerOpcion(Scanner sc) {
-		System.out.println("");
-		System.out.print("> Seleccione una opción: ");
-		int opcion = sc.nextInt();
-		
-		return opcion;
-	}
-	
-	private static String leerOpcion(Scanner sc, String texto) {
-		System.out.println("");
-		System.out.print("> " + texto + ":");
-		String opcion = sc.next();
-		
-		return opcion;
-	}
 }
