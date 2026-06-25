@@ -4,7 +4,15 @@ import java.time.LocalDateTime;
 
 import ar.com.codigomariano.helpers.Utils;
 import ar.com.codigomariano.helpers.ValidationUtils;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "USUARIOS")
 public class Usuario extends Persistible {
 	public static final String ERR_EMAIL_OBLIGATORIO = "El email es obligatorio";
 	public static final String ERR_EMAIL_MAX_LENGTH = "El email no puede superar los %d caracteres";
@@ -18,12 +26,27 @@ public class Usuario extends Persistible {
 	public static final int USERNAME_MAX_LENGTH = 50;
 	public static final int FULL_NAME_MAX_LENGTH = 100;
 	
+	@Column(name = "FECHA_CREACION")
 	private LocalDateTime fechaCreacion;
+	
+	@Column(name = "EMAIL")
 	private String email;
+	
+	@Column(name = "USERNAME")
 	private String username;
+	
+	@Column(name = "FULL_NAME")
 	private String nombreCompleto;
+	
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "IMAGEN_ID", nullable = true)
 	private Imagen imagen;
 	
+	
+	// Sólo para Hibernate
+	Usuario() {
+		super();
+	}
 	
 	public Usuario(String email) {
 		this(Utils.generarUsername(), email);

@@ -29,7 +29,7 @@ create table PREGUNTAS(
 
 create table PREGUNTAS_BINARIAS(
 	ID bigint not null,
-	opcion_correcta tinyint(1) not null,
+	OPCION_CORRECTA tinyint(1) not null,
 	PRIMARY KEY(ID)
 );
 

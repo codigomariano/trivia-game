@@ -1,7 +1,12 @@
 package ar.com.codigomariano.domain;
 
 import ar.com.codigomariano.helpers.ValidationUtils;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "IMAGENES")
 public class Imagen extends Persistible {
 	public static final String ERR_NOMBRE_OBLIGATORIO = "El nombre de la imagen es obligatorio";
 	public static final String ERR_NOMBRE_MAX_LENGTH = "El nombre de la imagen no puede superar los %d caracteres";
@@ -9,10 +14,19 @@ public class Imagen extends Persistible {
 
 	public static final int NOMBRE_MAX_LENGTH = 100;
 	
+	@Column(name = "FILE_NAME")
 	private String nombre;
+	
+	@Column(name = "CONTENT_TYPE")
 	private String contentType;
+	
+	@Column(name = "CONTENT")
 	private byte[] contenido;
 	
+	// Sólo para Hibernate
+	Imagen() {
+		super();
+	}
 	
 	public Imagen(String nombre, byte[] contenido) {
 		this(nombre, null, contenido);

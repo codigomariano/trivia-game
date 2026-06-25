@@ -3,7 +3,17 @@ package ar.com.codigomariano.domain.preguntas;
 import ar.com.codigomariano.domain.Persistible;
 import ar.com.codigomariano.enums.Categoria;
 import ar.com.codigomariano.helpers.ValidationUtils;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "PREGUNTAS")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pregunta extends Persistible {
 	public static final String ERR_CODIGO_OBLIGATORIO = "El código es obligatorio";
 	public static final String ERR_CODIGO_MAX_LENGTH = "El código no puede superar los %d caracteres";
@@ -15,11 +25,23 @@ public abstract class Pregunta extends Persistible {
 	public static final int TEXTO_MAX_LENGTH = 250;
 	public static final int DEFAULT_PUNTOS = 100;
 	
+	@Column(name = "CODIGO")
 	private String codigo;
+	
+	@Column(name = "TEXTO")
 	private String texto;
+	
+	@Column(name = "CATEGORIA")
+	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
+	
+	@Column(name = "PUNTOS")
 	private int puntos;
 	
+	// Sólo para Hibernate
+	Pregunta() {
+		super();
+	}
 	
 	public Pregunta(String codigo, String texto, Categoria categoria) {
 		this(codigo, texto, categoria, DEFAULT_PUNTOS);
