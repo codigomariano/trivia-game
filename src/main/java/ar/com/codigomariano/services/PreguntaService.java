@@ -2,8 +2,8 @@ package ar.com.codigomariano.services;
 
 import ar.com.codigomariano.domain.preguntas.Pregunta;
 
-public interface PreguntaService {
+public interface PreguntaService extends CRUDSevice<Pregunta>{
 
-	public void guadar(Pregunta pregunta);
+
 	
 }

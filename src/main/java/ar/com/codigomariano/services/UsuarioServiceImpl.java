@@ -9,14 +9,10 @@ import ar.com.codigomariano.domain.Usuario;
 import ar.com.codigomariano.repositories.UsuarioRepository;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioRepository> implements UsuarioService {
 	@Autowired
 	private UsuarioRepository repositorio;
 
-	@Override
-	public void guardar(Usuario user) {
-		this.repositorio.save(user);
-	}
 
 	@Override
 	public Usuario obtener(String email, Long id) {

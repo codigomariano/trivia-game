@@ -49,10 +49,10 @@ public class Usuario extends Persistible {
 	}
 	
 	public Usuario(String email) {
-		this(Utils.generarUsername(), email);
+		this(email, Utils.generarUsername());
 	}
 	
-	public Usuario(String username, String email) {
+	public Usuario(String email, String username) {
 		this.fechaCreacion = LocalDateTime.now();
 		setUsername(username);
 		setEmail(email);
