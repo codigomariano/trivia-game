@@ -18,9 +18,14 @@ public abstract class BaseServiceTest<T extends Persistible, S extends CRUDSevic
 	public void testGuardarEntidadExitosamente() {
 		T entidad = crearEntidadValida();
 		
-		this.servicio.guadar(entidad);
+		this.servicio.guardar(entidad);
 	}
 	
 	
 	protected abstract T crearEntidadValida();
+	
+	
+	protected S servicio() {
+		return this.servicio;
+	}
 }

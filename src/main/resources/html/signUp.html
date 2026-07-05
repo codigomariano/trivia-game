@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+	 
+	<body>
+		<div id="view-registration" class="view-section" layout:fragment="page-content">
+	      <div class="row justify-content-center">
+	          <div class="col-md-5">
+	              <div class="glass-card p-5">
+	                  <h2 class="text-center mb-4" th:text="#{registration.section.title}"></h2>
+	                  <form id="registerFrm" th:object="${form}" th:action="@{/registro}" method="post">
+	                      <div class="mb-3">
+	                          <label class="form-label text-muted-custom" th:text="#{email.field}"></label>
+	                          <input id="email" th:field="*{email}" type="email" class="form-control glass-input" placeholder="Email" name="email">
+	                      </div>
+	                      <button id="registerBtn" type="submit" class="btn btn-accent w-100 mb-3" th:text="#{register.btn}"></button>
+	                  </form>
+	              </div>
+	          </div>
+	      </div>
+	 	</div>	
+	</body>
+</html>

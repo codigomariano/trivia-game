@@ -11,7 +11,7 @@ public abstract class CRUDServiceImpl<T extends Persistible, R extends BaseRepos
 	
 	
 	@Override
-	public void guadar(T entidad) {
+	public void guardar(T entidad) {
 		this.repository.save(entidad);
 	}
 	
