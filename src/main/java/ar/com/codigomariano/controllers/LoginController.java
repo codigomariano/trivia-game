@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import ar.com.codigomariano.forms.RegistracionForm;
+import ar.com.codigomariano.forms.LoginForm;
 import ar.com.codigomariano.services.UsuarioService;
-import ar.com.codigomariano.validators.RegistracionFormValidator;
+import ar.com.codigomariano.validators.LoginFormValidator;
 
 @Controller
-public class RegistracionController extends BaseController{	
-	public static final String SIGN_UP_URL = "/signUp";
-	public static final String REGISTRACION_URL = "/registro";
-	private static final String SIGN_UP_VIEW = "signUp";
+public class LoginController extends BaseController{
+	public static final String SIGN_IN_URL = "/signIn";
+	public static final String LOGIN_URL = "/login";
+	private static final String SIGN_IN_VIEW = "signIn";
 	
 	@Autowired
 	private UsuarioService servicio;
 	@Autowired
-	private RegistracionFormValidator validator;
+	private LoginFormValidator validator;
 	
 	
 	@InitBinder(value = FORM_ATTRIBUTE)
@@ -32,17 +32,15 @@ public class RegistracionController extends BaseController{
 		binder.addValidators(this.validator);
 	}
 	
-	@GetMapping(value = SIGN_UP_URL)
+	@GetMapping(value = SIGN_IN_URL)
 	public String init(Model model) {
-		model.addAttribute(FORM_ATTRIBUTE, new RegistracionForm());
-		return SIGN_UP_VIEW;
+		model.addAttribute(FORM_ATTRIBUTE, new LoginForm());
+		return SIGN_IN_VIEW;
 	}
 	
-	@PostMapping(value = REGISTRACION_URL)
-	public String registracion(@Validated @ModelAttribute(FORM_ATTRIBUTE) RegistracionForm formulario, BindingResult results) {
-		if(results.hasErrors()) return SIGN_UP_VIEW;
-		
-		this.servicio.registrar(formulario.getEmail());
+	@PostMapping(value = LOGIN_URL)
+	public String login(@Validated @ModelAttribute(FORM_ATTRIBUTE) LoginForm formulario, BindingResult results) {
+		if(results.hasErrors()) return SIGN_IN_VIEW;
 		
 		return redirect("/");
 	}

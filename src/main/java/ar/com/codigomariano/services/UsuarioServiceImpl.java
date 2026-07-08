@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.codigomariano.domain.Usuario;
+import ar.com.codigomariano.exceptions.MultipleUsersFoundException;
 import ar.com.codigomariano.repositories.UsuarioRepository;
 
 @Service
@@ -18,12 +19,21 @@ public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioReposito
 	public Usuario obtener(String email, Long id) {
 		List<Usuario> usuarios = this.repositorio.findByEmailAndIdNot(email, id);
 	
-		if(usuarios == null || usuarios.isEmpty()) {
-			// Lanzar una excepcion
-		}else if(usuarios.size() > 1) {
-			// Lanzar una excepcion
+		Usuario encontrado = null;
+		if(usuarios != null && !usuarios.isEmpty()) {
+			if(usuarios.size() == 1) {
+				encontrado = usuarios.get(0);
+			} else new MultipleUsersFoundException(email);
 		}
 		
-		return usuarios.get(0);
+		return encontrado;
 	}
+	
+	@Override
+	public void registrar(String email) {
+		Usuario user = new Usuario(email);
+		
+		this.repositorio.save(user);
+	}
+	
 }

@@ -2,7 +2,7 @@ package ar.com.codigomariano.forms;
 
 import ar.com.codigomariano.domain.Usuario;
 
-public class RegistracionForm {
+public class LoginForm {
 	private String email;
 
 	public String getEmail() {
