@@ -8,6 +8,7 @@ import org.springframework.validation.Validator;
 import ar.com.codigomariano.domain.Usuario;
 import ar.com.codigomariano.exceptions.MultipleUsersFoundException;
 import ar.com.codigomariano.forms.LoginForm;
+import ar.com.codigomariano.helpers.ValidationUtils;
 import ar.com.codigomariano.services.UsuarioService;
 
 @Component
@@ -25,7 +26,7 @@ public class LoginFormValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		LoginForm form = (LoginForm) target;
 		
-		if(form.getEmail() == null || form.getEmail().isBlank()) {
+		if(ValidationUtils.isEmpty(form.getEmail())) {
 			errors.rejectValue("email", "email.empty");
 		} else {
 			try {

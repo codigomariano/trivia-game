@@ -3,6 +3,16 @@ package ar.com.codigomariano.helpers;
 public class ValidationUtils {
 
 	
+	
+	/**
+	 * Verifica si un identificador es válido.
+	 * Un ID se considera válido cuando no es nulo y su valor es mayor que cero.
+	 */
+	public static boolean isValidID(Long id) {
+		return id != null && id.longValue() > 0;
+	}
+	
+	
 	/**
 	 * Verifica si el texto ingresado contiene el carácter '@',
 	 * utilizado como criterio básico para identificar un correo electrónico.il

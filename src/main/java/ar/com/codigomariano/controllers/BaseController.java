@@ -1,7 +1,9 @@
 package ar.com.codigomariano.controllers;
 
 public abstract class BaseController {
+	protected final static String ID_PARAMETER = "id";
 	protected final static String FORM_ATTRIBUTE = "form";
+	protected final static String LIST_ATTRIBUTE = "listado";
 
 	
 	/**

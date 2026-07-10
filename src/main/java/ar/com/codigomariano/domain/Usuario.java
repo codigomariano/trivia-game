@@ -2,6 +2,8 @@ package ar.com.codigomariano.domain;
 
 import java.time.LocalDateTime;
 
+import ar.com.codigomariano.domain.interfaces.Editable;
+import ar.com.codigomariano.forms.UsuarioForm;
 import ar.com.codigomariano.helpers.Utils;
 import ar.com.codigomariano.helpers.ValidationUtils;
 import jakarta.persistence.CascadeType;
@@ -13,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "USUARIOS")
-public class Usuario extends Persistible {
+public class Usuario extends Persistible implements Editable<UsuarioForm>{
 	public static final String ERR_EMAIL_OBLIGATORIO = "El email es obligatorio";
 	public static final String ERR_EMAIL_MAX_LENGTH = "El email no puede superar los %d caracteres";
 	public static final String ERR_EMAIL_INVALID = "El email no tiene un formato válido";
@@ -58,6 +60,24 @@ public class Usuario extends Persistible {
 		setEmail(email);
 	}
 
+	
+	@Override
+	public void copyPropertiesToForm(UsuarioForm form) {
+		form.setId(getId());
+		form.setEmail(getEmail());
+		form.setUsername(getUsername());
+		form.setFullName(getNombreCompleto());
+	}
+
+	@Override
+	public void updatePropertiesFromForm(UsuarioForm form) {
+		setEmail(form.getEmail());
+		setUsername(form.getUsername());
+		setNombreCompleto(form.getFullName());
+	}
+	
+		
+	// SETTER & GETTERS
 	public String getEmail() {
 		return email;
 	}

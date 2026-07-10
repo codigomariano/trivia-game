@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+	 
+	<body>
+		<div id="view-create-user" class="view-section" layout:fragment="page-content">
+			<h2 th:if="${form.esCreacion()}" class="mb-4" th:text="#{administracion.users.create.section.title}"></h2>
+			<h2 th:if="${!form.esCreacion()}" class="mb-4" th:text="#{administracion.users.edition.section.title}"></h2>
+            
+            <div class="glass-card p-4">
+                <form id="userFrm" th:object="${form}" th:action="@{/admin/user/save}" method="post">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="email" class="form-label text-muted-custom" th:text="#{email.field}"></label>
+                            <input id="email" type="email" th:field="*{email}" th:class="'form-control glass-input' + ${#fields.hasErrors('email') ? ' is-invalid' : ''}" placeholder="Email" required="required" maxlength="${form.emailMaxLength}">
+                        	<div id="email-err" class="feedback invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="username" class="form-label text-muted-custom" th:text="#{username.field}"></label>
+                            <input id="username" type="text" th:field="*{username}" th:class="'form-control glass-input' + ${#fields.hasErrors('username') ? ' is-invalid' : ''}" placeholder="Username" required="required" maxlength="${form.usernameMaxLength}">
+                        	<div id="username-err" class="feedback invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="fullName" class="form-label text-muted-custom" th:text="#{fullName.field}"></label>
+                            <input id="fullName" type="text" th:field="*{fullName}" th:class="'form-control glass-input' + ${#fields.hasErrors('fullName') ? ' is-invalid' : ''}" placeholder="Nombre Completo" maxlength="${form.fullNameMaxLength}">
+                        	<div id="fullName-err" class="feedback invalid-feedback" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+                        </div>
+                    </div>         
+                              
+                    <input id="id" type="hidden" th:field="*{id}" />
+                    
+                    <div class="text-end mt-4">
+                        <button id="createBtn" type="submit" class="btn btn-accent btn-outline-light me-2" th:text="#{save.btn}"></button>
+                        <a id="cancelBtn" th:href="@{/admin/user/list}" class="btn btn-outline-light me-2" th:text="#{cancel.btn}"></a>
+                    </div>
+                </form>
+            </div>		
+		</div>
+	</body>
+</html>
