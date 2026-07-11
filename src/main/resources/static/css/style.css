@@ -159,6 +159,9 @@ body {
 	background-color: #dc3545;
 }
 
+.modal-title, .modal-body {
+	color: #454545;
+}
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }

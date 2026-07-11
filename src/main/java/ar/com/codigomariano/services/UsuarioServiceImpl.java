@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import ar.com.codigomariano.domain.Usuario;
 import ar.com.codigomariano.exceptions.MultipleUsersFoundException;
+import ar.com.codigomariano.forms.DeletionForm;
 import ar.com.codigomariano.forms.UsuarioForm;
 import ar.com.codigomariano.helpers.ValidationUtils;
 import ar.com.codigomariano.repositories.UsuarioRepository;
@@ -70,6 +71,13 @@ public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioReposito
 			
 			user.get().updatePropertiesFromForm(form);
 			guardar(usuario);
+		}
+	}
+	
+	@Override
+	public void eliminar(DeletionForm form) {
+		if(ValidationUtils.isValidID(form.getId())) {
+			this.repositorio.deleteById(form.getId());
 		}
 	}
 }

@@ -29,13 +29,31 @@
 	                     	<td th:text="${user.email}"></td>
 	                     	<td th:text="${user.username}"></td>
 	                     	<td th:text="${user.nombreCompleto}"></td>
-	                     	<td>
+	                     	<td style="text-align: right;">
 	                     		<a th:href="@{/admin/user/edit?id=} + ${user.id}" class="btn btn-sm btn-outline-light" th:text="#{edit.btn}"></a>
+	                     		<button th:id="${'btnDelete-' + user.id}" class="btn btn-sm btn-accent" onclick="confirmarEliminacion(this)" th:data-id="${user.id}" th:data-url="@{/admin/user/delete}" th:data-email="${user.email}" data-bs-toggle="modal" data-bs-target="#deletionModal" th:text="#{delete.btn}"></button>
 	                     	</td>
 	                    </tr>
                     </tbody>
                 </table>
             </div>
+            
+            <th:block th:replace="~{layouts/fragments/deletion-modal :: modal}"></th:block>
 		</div>	
+		
+		<th:block layout:fragment="page-script">
+            <script type="text/javascript">
+            	function confirmarEliminacion(btn) {
+            		var id = $(btn).data('id');
+            		var url = $(btn).data('url');
+            		var email = $(btn).data('email');
+            		
+            		var modal = $('#deletionModal');
+					modal.find('#deletionFrm').find('#id').val(id);
+					modal.find('#deletionFrm').attr('action', url);
+					modal.find('#deletionFrm').find('#modal-info').text(email);
+            	}
+            </script>
+       </th:block>
 	</body>
 </html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  
+  	<th:block th:fragment="modal">
+		<div id="deletionModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deletonModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+		    	<div class="modal-content">
+		    		<form id="deletionFrm" action="" method="post">
+			      		<div class="modal-header">
+			        		<h5 id="deletionModal-title" class="modal-title" th:text="#{delete.section.title}"></h5>
+			        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      		</div>
+			      		<div class="modal-body">
+			      			<p th:text="#{delete.confirmation.text}"></p>
+			      			<h6 id="modal-info"></h6>
+			      			<p th:text="#{delete.confirmation.question}"></p>
+			        		<input id="id" name="id" type="hidden" value="" />
+			      		</div>
+			      		<div class="modal-footer">
+			        		<button type="submit" class="btn btn-accent" th:text="#{delete.btn}"></button>
+			        		<button type="button" class="btn btn-secondary" th:text="#{close.btn}" data-bs-dismiss="modal"></button>
+			      		</div>			    		
+		    		</form>
+		    	</div>
+			</div>
+		</div>
+	</th:block>
+</html>

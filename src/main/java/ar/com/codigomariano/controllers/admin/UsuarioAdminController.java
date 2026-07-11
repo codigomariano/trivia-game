@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ar.com.codigomariano.controllers.BaseController;
 import ar.com.codigomariano.domain.Usuario;
+import ar.com.codigomariano.forms.DeletionForm;
 import ar.com.codigomariano.forms.UsuarioForm;
 import ar.com.codigomariano.services.UsuarioService;
 import ar.com.codigomariano.validators.UsuarioFormValidator;
@@ -25,6 +26,7 @@ public class UsuarioAdminController extends BaseController {
 	public static final String LIST_USERS_URL = "/admin/user/list";
 	public static final String EDIT_USERS_URL = "/admin/user/edit";
 	public static final String SAVE_USERS_URL = "/admin/user/save";
+	public static final String DELETE_USERS_URL = "/admin/user/delete";
 	
 	protected static final String LIST_USERS_VIEW = "/admin/users/list";
 	protected static final String FORM_USERS_VIEW = "/admin/users/form";
@@ -68,6 +70,15 @@ public class UsuarioAdminController extends BaseController {
 		} else {
 			this.servicio.actualizar(form);
 		}
+		
+		return redirect(LIST_USERS_URL);
+	}
+	
+	
+	@PostMapping(value = DELETE_USERS_URL)
+	public String delete(DeletionForm form) {
+		
+		this.servicio.eliminar(form);
 		
 		return redirect(LIST_USERS_URL);
 	}
