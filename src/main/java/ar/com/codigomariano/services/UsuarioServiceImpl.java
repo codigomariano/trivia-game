@@ -40,13 +40,15 @@ public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioReposito
 	
 	@Override
 	public void registrar(String email) {
-		registrar(email, null, null);
+		Usuario user = new Usuario(email);
+		
+		this.repositorio.save(user);
 	}
 	
 	@Override
 	public void registrar(String email, String username, String fullName) {
 		Usuario user = new Usuario(email, username);
-		user.setNombreCompleto(fullName);
+		if(!ValidationUtils.isEmpty(fullName)) user.setNombreCompleto(fullName);
 		
 		this.repositorio.save(user);
 	}
