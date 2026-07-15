@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ar.com.codigomariano.forms.LoginForm;
-import ar.com.codigomariano.services.UsuarioService;
+import ar.com.codigomariano.session.InfoSession;
 import ar.com.codigomariano.validators.LoginFormValidator;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LoginController extends BaseController{
@@ -21,8 +22,6 @@ public class LoginController extends BaseController{
 	public static final String LOGIN_URL = "/login";
 	private static final String SIGN_IN_VIEW = "signIn";
 	
-	@Autowired
-	private UsuarioService servicio;
 	@Autowired
 	private LoginFormValidator validator;
 	
@@ -39,8 +38,10 @@ public class LoginController extends BaseController{
 	}
 	
 	@PostMapping(value = LOGIN_URL)
-	public String login(@Validated @ModelAttribute(FORM_ATTRIBUTE) LoginForm formulario, BindingResult results) {
+	public String login(HttpSession session, @Validated @ModelAttribute(FORM_ATTRIBUTE) LoginForm formulario, BindingResult results) {
 		if(results.hasErrors()) return SIGN_IN_VIEW;
+		
+		session.setAttribute(INFO_ATTRIBUTE, new InfoSession(formulario.getEmail()));
 		
 		return redirect("/");
 	}
