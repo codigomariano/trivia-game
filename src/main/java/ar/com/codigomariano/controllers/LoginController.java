@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import ar.com.codigomariano.controllers.user.ProfileController;
 import ar.com.codigomariano.forms.LoginForm;
 import ar.com.codigomariano.session.InfoSession;
 import ar.com.codigomariano.validators.LoginFormValidator;
@@ -43,6 +44,6 @@ public class LoginController extends BaseController{
 		
 		session.setAttribute(INFO_ATTRIBUTE, new InfoSession(formulario.getEmail()));
 		
-		return redirect("/");
+		return redirect(ProfileController.VIEW_PROFILE_URL);
 	}
 }
