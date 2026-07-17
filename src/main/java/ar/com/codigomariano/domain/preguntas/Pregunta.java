@@ -1,7 +1,8 @@
 package ar.com.codigomariano.domain.preguntas;
 
-import ar.com.codigomariano.domain.Persistible;
+import ar.com.codigomariano.domain.Editable;
 import ar.com.codigomariano.enums.Categoria;
+import ar.com.codigomariano.forms.PreguntaForm;
 import ar.com.codigomariano.helpers.ValidationUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "PREGUNTAS")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pregunta extends Persistible {
+public abstract class Pregunta extends Editable<PreguntaForm>{
 	public static final String ERR_CODIGO_OBLIGATORIO = "El código es obligatorio";
 	public static final String ERR_CODIGO_MAX_LENGTH = "El código no puede superar los %d caracteres";
 	public static final String ERR_TEXTO_OBLIGATORIO = "El username es obligatorio";

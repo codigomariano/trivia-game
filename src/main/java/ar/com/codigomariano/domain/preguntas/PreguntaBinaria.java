@@ -1,6 +1,7 @@
 package ar.com.codigomariano.domain.preguntas;
 
 import ar.com.codigomariano.enums.Categoria;
+import ar.com.codigomariano.forms.PreguntaForm;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -32,5 +33,17 @@ public class PreguntaBinaria extends Pregunta {
 
 	public void setCorrecta(boolean correcta) {
 		this.correcta = correcta;
+	}
+
+	@Override
+	public void copyPropertiesToForm(PreguntaForm form) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updatePropertiesFromForm(PreguntaForm form) {
+		// TODO Auto-generated method stub
+		
 	}
 }

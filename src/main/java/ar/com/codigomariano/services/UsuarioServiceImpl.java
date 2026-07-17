@@ -10,22 +10,16 @@ import org.springframework.stereotype.Service;
 import ar.com.codigomariano.domain.Imagen;
 import ar.com.codigomariano.domain.Usuario;
 import ar.com.codigomariano.exceptions.MultipleUsersFoundException;
-import ar.com.codigomariano.forms.DeletionForm;
 import ar.com.codigomariano.forms.ProfileForm;
 import ar.com.codigomariano.forms.UsuarioForm;
 import ar.com.codigomariano.helpers.ValidationUtils;
 import ar.com.codigomariano.repositories.UsuarioRepository;
 
 @Service
-public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioRepository> implements UsuarioService {
+public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioForm, UsuarioRepository> implements UsuarioService {
 	@Autowired
 	private UsuarioRepository repositorio;
 
-
-	@Override
-	public List<Usuario> listAll() {
-		return this.repositorio.findAll();
-	}
 	
 	@Override
 	public Usuario obtener(String email, Long id) {
@@ -45,7 +39,7 @@ public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioReposito
 	public void registrar(String email) {
 		Usuario user = new Usuario(email);
 		
-		this.repositorio.save(user);
+		guardar(user);
 	}
 	
 	@Override
@@ -53,19 +47,7 @@ public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioReposito
 		Usuario user = new Usuario(email, username);
 		if(!ValidationUtils.isEmpty(fullName)) user.setNombreCompleto(fullName);
 		
-		this.repositorio.save(user);
-	}
-	
-	@Override
-	public UsuarioForm prepareEntity(Long id) {
-		UsuarioForm form = new UsuarioForm();
-		
-		if(ValidationUtils.isValidID(id)) {
-			Optional<Usuario> user = this.repositorio.findById(id);
-			if(user.isPresent()) user.get().copyPropertiesToForm(form);
-		}
-		
-		return form;
+		guardar(user);
 	}
 	
 	@Override
@@ -87,44 +69,52 @@ public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioReposito
 	
 	@Override
 	public void actualizar(UsuarioForm form) {
-		Optional<Usuario> user = this.repositorio.findById(form.getId());
-		if(user.isPresent()) {
-			Usuario usuario = user.get();
-			
-			user.get().updatePropertiesFromForm(form);
-			guardar(usuario);
-		}
+		Usuario usuario = obtenerYactualizarUsuario(form);
+		guardar(usuario);
 	}
 	
 	@Override
 	public void actualizar(ProfileForm form) {
-		Optional<Usuario> user = this.repositorio.findById(form.getId());
-		if(user.isPresent()) {
-			Usuario usuario = user.get();
+		Usuario usuario = obtenerYactualizarUsuario(form);
+
+		if(usuario != null && form.tieneImagenCargada()) {
+			Imagen img;
 			
-			usuario.setEmail(form.getEmail());
-			usuario.setUsername(form.getUsername());
-			usuario.setNombreCompleto(form.getFullName());
-			
-			if(form.tieneImagenCargada()) {
-				Imagen img;
-				
-				try {
-					img = new Imagen(form.getFile().getOriginalFilename(), form.getFile().getContentType(), form.getFile().getBytes());
-					usuario.setImagen(img);
-				} catch (IOException e) {
-					System.out.println("No se pudo asociar la imagen al usuario");
-				}
+			try {
+				img = new Imagen(form.getFile().getOriginalFilename(), form.getFile().getContentType(), form.getFile().getBytes());
+				usuario.setImagen(img);
+			} catch (IOException e) {
+				System.out.println("No se pudo asociar la imagen al usuario");
 			}
 			
-			guardar(usuario);
 		}
+		
+		guardar(usuario);
 	}
+
 	
 	@Override
-	public void eliminar(DeletionForm form) {
-		if(ValidationUtils.isValidID(form.getId())) {
-			this.repositorio.deleteById(form.getId());
-		}
+	protected UsuarioForm emptyForm() {
+		return new UsuarioForm();
 	}
+
+
+	/**
+	 * Actualiza la entidad de negocio utilizando la información proveniente del
+	 * formulario recibido. Este método puede operar tanto con un formulario de
+	 * administración de usuarios ({@code UsuarioForm}) como con el formulario de
+	 * edición del perfil del usuario autenticado ({@code ProfileForm}).
+	 */
+	private Usuario obtenerYactualizarUsuario(UsuarioForm form) {
+		Usuario usuario = null;
+		Optional<Usuario> user = this.repositorio.findById(form.getId());
+		
+		if(user.isPresent()) {
+			usuario = user.get();
+			user.get().updatePropertiesFromForm(form);
+		}
+		
+		return usuario;
+	}
+
 }

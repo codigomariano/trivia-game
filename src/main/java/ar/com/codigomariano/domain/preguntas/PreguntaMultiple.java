@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.com.codigomariano.domain.Respuesta;
 import ar.com.codigomariano.enums.Categoria;
+import ar.com.codigomariano.forms.PreguntaForm;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -27,5 +28,17 @@ public class PreguntaMultiple extends Pregunta {
 	public PreguntaMultiple(String codigo, String texto, Categoria categoria) {
 		super(codigo, texto, categoria);
 		this.respuestas = new ArrayList<Respuesta>();
+	}
+
+	@Override
+	public void copyPropertiesToForm(PreguntaForm form) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updatePropertiesFromForm(PreguntaForm form) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

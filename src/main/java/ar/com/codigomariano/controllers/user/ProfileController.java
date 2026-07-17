@@ -21,7 +21,6 @@ import ar.com.codigomariano.controllers.BaseController;
 import ar.com.codigomariano.controllers.LoginController;
 import ar.com.codigomariano.domain.Imagen;
 import ar.com.codigomariano.forms.ProfileForm;
-import ar.com.codigomariano.forms.UsuarioForm;
 import ar.com.codigomariano.services.ImagenService;
 import ar.com.codigomariano.services.UsuarioService;
 import ar.com.codigomariano.session.InfoSession;
