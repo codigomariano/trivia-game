@@ -10,6 +10,11 @@ public abstract class PersistableServiceImpl<T extends Persistible, R extends Ba
 	private R repository;
 	
 	
+	@Override
+	public long cantidadEntidades() {
+		return this.repository.count();
+	}
+	
 	
 	protected R repository() {
 		return this.repository;
