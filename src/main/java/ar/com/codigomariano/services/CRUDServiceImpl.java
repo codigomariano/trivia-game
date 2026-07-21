@@ -35,6 +35,19 @@ public abstract class CRUDServiceImpl<E extends Editable<F>, F extends EntityFor
 	}
 	
 	@Override
+	public void actualizar(F form) {
+		E entity = null;
+		Optional<E> option = repository().findById(form.getId());
+		
+		if(option.isPresent()) {
+			entity = option.get();
+			entity.updatePropertiesFromForm(form);
+			
+			guardar(entity);
+		}
+	}
+	
+	@Override
 	public void eliminar(DeletionForm form) {
 		if(ValidationUtils.isValidID(form.getId())) {
 			repository().deleteById(form.getId());

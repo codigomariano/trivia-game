@@ -1,25 +1,24 @@
 package ar.com.codigomariano.services;
 
-import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 import ar.com.codigomariano.domain.preguntas.Pregunta;
+import ar.com.codigomariano.forms.DeletionForm;
 import ar.com.codigomariano.forms.PreguntaForm;
 import ar.com.codigomariano.repositories.PreguntaRepository;
 
-@Service
-public class PreguntaServiceImpl extends CRUDServiceImpl<Pregunta, PreguntaForm, PreguntaRepository> implements PreguntaService {
+
+public abstract class PreguntaServiceImpl<T extends Pregunta<F>, F extends PreguntaForm, R extends PreguntaRepository<T, F>> extends CRUDServiceImpl<T, F, R> implements PreguntaService<T, F> {
+
 
 	@Override
-	public void actualizar(PreguntaForm form) {
-		// TODO Auto-generated method stub
+	public void eliminar(DeletionForm form) {
+		Optional<T> option = repository().findById(form.getId());
 		
+		if(option.isPresent()) {
+			T pregunta = option.get();
+			pregunta.setEliminada(Boolean.TRUE);
+			guardar(pregunta);
+		}
 	}
-
-
-	@Override
-	protected PreguntaForm emptyForm() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

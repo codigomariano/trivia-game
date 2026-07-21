@@ -1,0 +1,1 @@
+alter table PREGUNTAS drop column ELIMINADA;

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+	 
+	<body>
+		<th:block th:fragment="respuestas">
+			<div th:each="option : ${form.opciones}" class="input-group mb-3 glass-input-group">
+	            <div class="input-group-text glass-addon">
+	                <input th:id="${'opt_' + option.name()}" type="radio" th:field="*{correcta}" th:value="${option.name()}" th:class="'form-check-input mt-0' + ${#fields.hasErrors('correcta') ? ' is-invalid' : ''}">
+	            </div>
+	            <input th:id="${'opt_' + option.name() + '_text'}" type="text" th:value="${option.displayText()}" class="form-control glass-input" readonly="readonly">
+            </div>
+            <div id="correcta-err" class="feedback invalid-feedback" th:if="${#fields.hasErrors('correcta')}" th:errors="*{correcta}"></div>
+		</th:block>
+	</body>
+</html>

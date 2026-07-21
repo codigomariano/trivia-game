@@ -19,7 +19,7 @@
 			        <div class="glass-card p-4 text-center cursor-pointer">
 			            <h3 class="text-accent fs-1" th:text="${cant_preguntas}"></h3>
 			            <p class="text-muted-custom mb-0" th:text="#{dashboard.total.questions}"></p>
-			            <a href="#" class="btn btn-outline-light mt-3" th:text="#{view.list.btn}"></a>
+			            <a th:href="@{/admin/pregunta/list}" class="btn btn-outline-light mt-3" th:text="#{view.list.btn}"></a>
 			        </div>
 			    </div>
 			</div>

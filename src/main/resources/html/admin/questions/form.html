@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+	 
+	<body>
+		<div id="view-create-question" class="view-section" layout:fragment="page-content">
+			<h2 th:if="${form.esCreacion()}" class="mb-4" th:text="#{administracion.questions.create.section.title(${form.type})}"></h2>
+			<h2 th:if="${!form.esCreacion()}" class="mb-4" th:text="#{administracion.questions.create.section.title(${form.type})}"></h2>
+            		
+            <div class="glass-card p-4">
+                <form id="questionFrm" th:object="${form}" th:action="@{/admin/pregunta/save/} + ${form.type}" method="post">
+                    <div class="row">
+                    	<div class="col-md-12 mb-3">
+                            <label for="codigo" class="form-label text-muted-custom" th:text="#{code.field}"></label>
+                            <input id="codigo" type="text" th:field="*{codigo}" th:class="'form-control glass-input' + ${#fields.hasErrors('codigo') ? ' is-invalid' : ''}">
+                        	<div id="codigo-err" class="feedback invalid-feedback" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="question" class="form-label text-muted-custom" th:text="#{question.field}"></label>
+                            <input id="question" type="text" th:field="*{pregunta}" th:class="'form-control glass-input' + ${#fields.hasErrors('pregunta') ? ' is-invalid' : ''}" placeholder="Ej: ¿Quién pintó la Mona Lisa?">
+                        	<div id="question-err" class="feedback invalid-feedback" th:if="${#fields.hasErrors('pregunta')}" th:errors="*{pregunta}"></div>
+                        </div>
+	                    <div class="col-md-2 mb-3">
+		                    <label for="categoria" class="form-label text-muted-custom" th:text="#{categoria.field}"></label>
+		                    <select id="categoria" th:field="*{categoria}" th:class="'form-control glass-input' + ${#fields.hasErrors('categoria') ? ' is-invalid' : ''}">
+	    						<option value="-1" th:text="#{select}" disabled="disabled"/>
+	    						<option th:each="category : ${form.categorias}" th:value="${category.name()}" th:text="${category}" />
+		                    </select>
+		                    <div id="categoria-err" class="feedback invalid-feedback" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></div>
+	                    </div>
+	                    <div class="col-md-2 mb-3">
+	                        <label for="puntos" class="form-label text-muted-custom" th:text="#{puntos.field}"></label>
+	                        <input id="puntos" type="number" th:field="*{puntos}" th:class="'form-control glass-input' + ${#fields.hasErrors('puntos') ? ' is-invalid' : ''}">
+	                 		<div id="puntos-err" class="feedback invalid-feedback" th:if="${#fields.hasErrors('puntos')}" th:errors="*{puntos}"></div>
+	                 	</div>        
+                    </div>
+                    
+                    <hr class="border-secondary my-4">
+                    <h5 class="mb-3 text-accent" th:text="#{adm.questions.questions.answers.title}"></h5>
+                    
+                    <th:block th:if="${form.esBinaria()}">
+                    	<th:block th:replace="~{/admin/questions/form-pregunta-binaria :: respuestas}" />
+                    </th:block>
+                    
+                    <th:block th:if="${form.esMultiple()}">
+                    	<th:block th:replace="~{/admin/questions/form-pregunta-multiple :: respuestas}" />
+                    </th:block>
+                    
+                    <input id="id" type="hidden" th:field="*{id}">
+                    <input id="type" type="hidden" th:field="*{type}">
+                               
+                    <div class="text-end mt-4">
+                        <button id="createBtn" type="submit" class="btn btn-accent btn-outline-light me-2" th:text="#{save.btn}"></button>
+                        <a id="cancelBtn" th:href="@{/admin/pregunta/list}" class="btn btn-outline-light me-2" th:text="#{cancel.btn}"></a>
+                    </div>
+                </form>
+            </div>		
+		</div>
+	</body>
+</html>

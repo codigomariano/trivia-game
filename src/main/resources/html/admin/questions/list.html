@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+	 
+	<body>
+		<div id="view-questions-list" class="view-section" layout:fragment="page-content">
+			<div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 th:text="#{administracion.questions.section.title}"></h2>
+                <a th:href="@{/admin/pregunta/choose}" class="btn btn-accent" th:text="#{question.create.btn}"></a>
+            </div>
+            <div class="glass-card p-0 overflow-hidden">
+                <table class="table table-borderless table-hover table-dark mb-0 custom-table">
+                    <thead class="table-dark-header">
+                        <tr>
+                        	<th th:text="#{col.code}"></th>
+                        	<th th:text="#{col.categoria}"></th>
+                            <th th:text="#{col.pregunta}"></th>
+                            <th th:text="#{col.puntos}"></th>
+                            <th th:text="#{col.estado}"></th>
+                            <th colspan="2" style="text-align: right;" th:text="#{col.actions}"></th>
+                    	</tr>
+                    </thead>
+                    <tbody>
+                    	<tr th:each="q : ${listado}">
+	                        <td th:text="${q.codigo}"></td>
+	                     	<td>
+	                     		<span th:class="'badge bg-' + ${q.categoria}" th:text="${q.categoria}"></span>
+	                     	</td>
+	                     	<td th:text="${q.texto}"></td>
+	                     	<td th:text="${q.puntos + ' pts'}"></td>
+	                     	<td>
+	                     		<span th:if="${!q.estaActiva()}" class="badge bg-danger" th:text="#{question.eliminada}"></span>
+	                     		<span th:if="${q.estaActiva()}" class="badge bg-success" th:text="#{question.activa}"></span>
+	                     	</td>
+	                     	<td style="text-align: right;">
+	                     		<a th:href="@{/admin/pregunta/edit/} + ${q.type} + '?id=' + ${q.id}" class="btn btn-sm btn-outline-light" th:text="#{edit.btn}"></a>
+	                     		<button th:if="${q.estaActiva()}" th:id="${'btnDelete-' + q.id}" class="btn btn-sm btn-accent" onclick="confirmarEliminacion(this)" th:data-id="${q.id}" th:data-url="@{/admin/pregunta/delete/} + ${q.type}" th:data-code="${q.codigo}" data-bs-toggle="modal" data-bs-target="#deletionModal" th:text="#{delete.btn}"></button>
+	                     	</td>
+	                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <th:block th:replace="~{layouts/fragments/deletion-modal :: modal}"></th:block>
+		</div>
+		
+		<th:block layout:fragment="page-script">
+            <script type="text/javascript">
+            	function confirmarEliminacion(btn) {
+            		var id = $(btn).data('id');
+            		var url = $(btn).data('url');
+            		var code = $(btn).data('code');
+            		
+            		var modal = $('#deletionModal');
+					modal.find('#deletionFrm').find('#id').val(id);
+					modal.find('#deletionFrm').attr('action', url);
+					modal.find('#deletionFrm').find('#modal-info').text(code);
+            	}
+            </script>
+       </th:block>
+	</body>
+</html>

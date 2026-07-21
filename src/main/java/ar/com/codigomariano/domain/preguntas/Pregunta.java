@@ -2,6 +2,7 @@ package ar.com.codigomariano.domain.preguntas;
 
 import ar.com.codigomariano.domain.Editable;
 import ar.com.codigomariano.enums.Categoria;
+import ar.com.codigomariano.enums.PreguntaType;
 import ar.com.codigomariano.forms.PreguntaForm;
 import ar.com.codigomariano.helpers.ValidationUtils;
 import jakarta.persistence.Column;
@@ -15,16 +16,19 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "PREGUNTAS")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pregunta extends Editable<PreguntaForm>{
+public abstract class Pregunta<F extends PreguntaForm> extends Editable<F>{
 	public static final String ERR_CODIGO_OBLIGATORIO = "El código es obligatorio";
 	public static final String ERR_CODIGO_MAX_LENGTH = "El código no puede superar los %d caracteres";
 	public static final String ERR_TEXTO_OBLIGATORIO = "El username es obligatorio";
 	public static final String ERR_TEXTO_MAX_LENGTH = "El nombre completo no puede superar los %d caracteres";
 	public static final String ERR_CATEGORIA_OBLIGATORIO = "La categoría es obligatoria";
-
+	public static final String ERR_PUNTOS_RANGE = "Los puntos deben estar entre %d y %d";
+	
 	public static final int CODIGO_MAX_LENGTH = 50;
 	public static final int TEXTO_MAX_LENGTH = 250;
 	public static final int DEFAULT_PUNTOS = 100;
+	public static final int PUNTOS_MIN_VALUE = 1;
+	public static final int PUNTOS_MAX_VALUE = 200;
 	
 	@Column(name = "CODIGO")
 	private String codigo;
@@ -38,6 +42,10 @@ public abstract class Pregunta extends Editable<PreguntaForm>{
 	
 	@Column(name = "PUNTOS")
 	private int puntos;
+	
+	@Column(name = "ELIMINADA")
+	private Boolean eliminada;
+	
 	
 	// Sólo para Hibernate
 	Pregunta() {
@@ -53,8 +61,32 @@ public abstract class Pregunta extends Editable<PreguntaForm>{
 		setTexto(texto);
 		setCategoria(categoria);
 		setPuntos(puntos);
+		setEliminada(Boolean.FALSE);
 	}
 
+	
+	public Boolean estaActiva() {
+		return ! Boolean.TRUE.equals(getEliminada());
+	}
+	
+	@Override
+	public void copyPropertiesToForm(F form) {
+		form.setId(getId());
+		form.setCodigo(getCodigo());
+		form.setCategoria(getCategoria());
+		form.setPregunta(getTexto());
+		form.setPuntos(getPuntos());
+	}
+	
+	@Override
+	public void updatePropertiesFromForm(F form) {
+		setCodigo(form.getCodigo());
+		setCategoria(form.getCategoria());
+		setTexto(form.getPregunta().trim());
+		setPuntos(form.getPuntos());
+	}
+	
+	
 	public String getCodigo() {
 		return codigo;
 	}
@@ -95,6 +127,17 @@ public abstract class Pregunta extends Editable<PreguntaForm>{
 	}
 
 	public void setPuntos(int puntos) {
+		if(puntos < PUNTOS_MIN_VALUE || puntos > PUNTOS_MAX_VALUE) throw new IllegalArgumentException(String.format(ERR_PUNTOS_RANGE, PUNTOS_MIN_VALUE, PUNTOS_MAX_VALUE));
 		this.puntos = puntos;
 	}
+	
+	public Boolean getEliminada() {
+		return eliminada;
+	}
+
+	public void setEliminada(Boolean eliminada) {
+		this.eliminada = eliminada;
+	}
+
+	public abstract PreguntaType getType();
 }

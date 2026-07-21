@@ -5,7 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ar.com.codigomariano.services.PreguntaService;
+import ar.com.codigomariano.services.PreguntaBinariaService;
+import ar.com.codigomariano.services.PreguntaMultipleService;
 import ar.com.codigomariano.services.UsuarioService;
 
 @Controller
@@ -19,13 +20,17 @@ public class DashboardController extends AdminController {
 	@Autowired
 	private UsuarioService usuarioService;
 	@Autowired
-	private PreguntaService preguntaService;
+	private PreguntaBinariaService serviceBinaria;
+	@Autowired
+	private PreguntaMultipleService serviceMultiple;
 	
 	
 	@GetMapping(value = DASHBOARD_URL)
 	public String view(Model model) {
 		model.addAttribute(CANT_USUARIOS_KEY, this.usuarioService.cantidadEntidades());
-		model.addAttribute(CANT_PREGUNTAS_KEY, this.preguntaService.cantidadEntidades());
+		
+		long cantPreguntas = this.serviceBinaria.cantidadEntidades() + this.serviceMultiple.cantidadEntidades();
+		model.addAttribute(CANT_PREGUNTAS_KEY, cantPreguntas);
 
 		return DASHBOARD_VIEW;
 	}

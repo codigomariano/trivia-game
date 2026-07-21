@@ -1,6 +1,7 @@
 package ar.com.codigomariano.domain;
 
 import ar.com.codigomariano.enums.OpcionMultiple;
+import ar.com.codigomariano.forms.RespuestaForm;
 import ar.com.codigomariano.helpers.ValidationUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "RESPUESTAS")
-public class Respuesta extends Persistible{
+public class Respuesta extends Editable<RespuestaForm>{
 	public static final String ERR_OPCION_OBLIGATORIO = "La opción es obligatoria";
 	public static final String ERR_TEXTO_OBLIGATORIO = "El texto es obligatorio";
 	public static final String ERR_TEXTO_LENGTH = "El texto puede superar los %d caracteres";
@@ -43,6 +44,21 @@ public class Respuesta extends Persistible{
 		setCorrecta(esCorrecta);
 	}
 
+	
+	@Override
+	public void copyPropertiesToForm(RespuestaForm form) {
+		form.setId(getId());
+		form.setOpcion(getOpcion());
+		form.setTexto(getTexto());
+		form.setCorrecta(getCorrecta());
+	}
+	
+	@Override
+	public void updatePropertiesFromForm(RespuestaForm form) {
+		setTexto(form.getTexto());
+		setCorrecta(Boolean.TRUE.equals(form.getCorrecta()));
+	}
+	
 	
 	public OpcionMultiple getOpcion() {
 		return opcion;

@@ -1,14 +1,16 @@
 package ar.com.codigomariano.domain.preguntas;
 
 import ar.com.codigomariano.enums.Categoria;
-import ar.com.codigomariano.forms.PreguntaForm;
+import ar.com.codigomariano.enums.OpcionBinaria;
+import ar.com.codigomariano.enums.PreguntaType;
+import ar.com.codigomariano.forms.PreguntaBinariaForm;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "PREGUNTAS_BINARIAS")
-public class PreguntaBinaria extends Pregunta {
+public class PreguntaBinaria extends Pregunta<PreguntaBinariaForm> {
 	@Column(name = "OPCION_CORRECTA")
 	private boolean correcta;
 	
@@ -27,23 +29,29 @@ public class PreguntaBinaria extends Pregunta {
 		this.correcta = correcta;
 	}
 
+	
+	@Override
+	public void copyPropertiesToForm(PreguntaBinariaForm form) {
+		super.copyPropertiesToForm(form);
+		form.setCorrecta(OpcionBinaria.getFromValue(isCorrecta()));
+	}
+	
+	@Override
+	public void updatePropertiesFromForm(PreguntaBinariaForm form) {
+		super.updatePropertiesFromForm(form);
+		setCorrecta(form.getCorrecta().getValor());
+	}
+	
+	@Override
+	public PreguntaType getType() {
+		return PreguntaType.BINARIA;
+	}
+	
 	public boolean isCorrecta() {
 		return correcta;
 	}
 
 	public void setCorrecta(boolean correcta) {
 		this.correcta = correcta;
-	}
-
-	@Override
-	public void copyPropertiesToForm(PreguntaForm form) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updatePropertiesFromForm(PreguntaForm form) {
-		// TODO Auto-generated method stub
-		
 	}
 }

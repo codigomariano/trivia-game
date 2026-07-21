@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+	 
+	<body>
+		<div id="view-question-selector" class="view-section" layout:fragment="page-content">
+	         <h2 class="mb-4" th:text="#{administracion.questions.selector.section.title}"></h2>
+	         <div class="row g-4">
+				<div class="col-md-6" th:each="type : ${preguntas_type}">
+                    <div class="glass-card p-4 text-center cursor-pointer">
+                        <h3 class="text-accent fs-1"><i class="fa-solid fa-plus"></i></h3>
+                        <p class="text-muted-custom mb-0" th:text="#{question.create.new}"></p>
+                        <a th:href="@{/admin/pregunta/edit/} + ${type}" class="btn btn-accent mt-3" th:text="#{question.create.type(${type})}"></a>
+                    </div>
+                </div>
+			</div>
+        </div>
+	</body>
+</html>

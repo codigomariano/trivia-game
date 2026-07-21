@@ -5,6 +5,6 @@ import ar.com.codigomariano.forms.PreguntaForm;
 import ar.com.codigomariano.services.BaseServiceTest;
 import ar.com.codigomariano.services.PreguntaService;
 
-public abstract class PreguntaServiceTest extends BaseServiceTest<Pregunta, PreguntaForm, PreguntaService> {
+public abstract class PreguntaServiceTest<P extends Pregunta<F>, F extends PreguntaForm, S extends PreguntaService<P, F>> extends BaseServiceTest<P, F, S> {
 
 }

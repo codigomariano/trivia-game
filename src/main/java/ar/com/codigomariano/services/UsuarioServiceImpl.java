@@ -67,11 +67,6 @@ public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioForm, Us
 		return form;
 	}
 	
-	@Override
-	public void actualizar(UsuarioForm form) {
-		Usuario usuario = obtenerYactualizarUsuario(form);
-		guardar(usuario);
-	}
 	
 	@Override
 	public void actualizar(ProfileForm form) {

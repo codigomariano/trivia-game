@@ -10,7 +10,7 @@
   
   <groupId>ar.com.codigomariano</groupId>
   <artifactId>trivia-game</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   
   <name>CODIGOMARIANO Game</name>
   <description>Juego de Preguntas y Respuestas evolutivo de los programas CODIGO MARIANO</description>

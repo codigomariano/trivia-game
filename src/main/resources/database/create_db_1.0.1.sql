@@ -1,0 +1,1 @@
+alter table PREGUNTAS add ELIMINADA TINYINT(1) null;

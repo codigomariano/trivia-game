@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+	 
+	<body>
+		<th:block th:fragment="respuestas">
+	       	<div th:each="respuesta : ${form.opciones}" th:class="'input-group mb-3 glass-input-group' + ${#fields.hasErrors('respuestas') ? ' is-invalid' : ''}">
+	            <div class="input-group-text glass-addon">
+	                <input th:id="${'opt_' + respuesta}" type="checkbox" th:field="*{respuestas[__${respuesta.ordinal()}__].correcta}" th:value="*{respuestas[__${respuesta.ordinal()}__].correcta}" th:checked="*{respuestas[__${respuesta.ordinal()}__].correcta}" th:class="'form-check-input mt-0' + ${#fields.hasErrors('respuestas[' + respuesta.ordinal() +'].texto') ? ' is-invalid' : ''}">
+	            </div>
+	            <input th:id="${'opt_' + respuesta + '_text'}" type="text" th:field="*{respuestas[__${respuesta.ordinal()}__].texto}" th:placeholder="${'Opcion ' + respuesta}" class="form-control glass-input">
+	       		<div th:id="${'opt_' + respuesta + '-err'}" class="feedback invalid-feedback" th:if="${#fields.hasErrors('respuestas[' + respuesta.ordinal() +'].texto')}" ></div>
+	       	</div>
+	       	<div id="respuestas-err" class="feedback invalid-feedback" th:if="${#fields.hasErrors('respuestas')}" th:errors="*{respuestas}"></div>
+		</th:block>
+	</body>
+</html>

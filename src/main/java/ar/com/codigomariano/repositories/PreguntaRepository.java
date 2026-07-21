@@ -1,10 +1,9 @@
 package ar.com.codigomariano.repositories;
 
-import org.springframework.stereotype.Repository;
-
 import ar.com.codigomariano.domain.preguntas.Pregunta;
+import ar.com.codigomariano.forms.PreguntaForm;
 
-@Repository
-public interface PreguntaRepository extends BaseRepository<Pregunta> {
+
+public interface PreguntaRepository<P extends Pregunta<F>, F extends PreguntaForm> extends BaseRepository<P> {
 
 }
