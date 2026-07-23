@@ -1,10 +1,11 @@
 package ar.com.codigomariano.services;
 
 import ar.com.codigomariano.domain.Usuario;
+import ar.com.codigomariano.dtos.UsuarioDTO;
 import ar.com.codigomariano.forms.ProfileForm;
 import ar.com.codigomariano.forms.UsuarioForm;
 
-public interface UsuarioService extends CRUDService<Usuario, UsuarioForm>{
+public interface UsuarioService extends ExponibleService<Usuario, UsuarioForm, UsuarioDTO>{
 	
 	public void registrar(String email);
 	

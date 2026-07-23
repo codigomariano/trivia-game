@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import ar.com.codigomariano.domain.Imagen;
 import ar.com.codigomariano.domain.Usuario;
+import ar.com.codigomariano.dtos.UsuarioDTO;
 import ar.com.codigomariano.exceptions.MultipleUsersFoundException;
 import ar.com.codigomariano.forms.ProfileForm;
 import ar.com.codigomariano.forms.UsuarioForm;
@@ -16,7 +17,7 @@ import ar.com.codigomariano.helpers.ValidationUtils;
 import ar.com.codigomariano.repositories.UsuarioRepository;
 
 @Service
-public class UsuarioServiceImpl extends CRUDServiceImpl<Usuario, UsuarioForm, UsuarioRepository> implements UsuarioService {
+public class UsuarioServiceImpl extends ExponibleServiceImpl<Usuario, UsuarioForm, UsuarioRepository, UsuarioDTO> implements UsuarioService {
 	@Autowired
 	private UsuarioRepository repositorio;
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.codigomariano.domain.Usuario;
+import ar.com.codigomariano.dtos.UsuarioDTO;
 import ar.com.codigomariano.forms.RegistracionForm;
 import ar.com.codigomariano.services.UsuarioService;
 import ar.com.codigomariano.validators.RegistracionFormValidator;
@@ -30,8 +30,8 @@ public class UsuarioAPI {
 	@GetMapping(value = LIST_USERS_URL,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Usuario>> list() {
-		List<Usuario> usuarios = this.servicio.listAll();
+	public ResponseEntity<List<UsuarioDTO>> list() {
+		List<UsuarioDTO> usuarios = this.servicio.exponer();
 		
 		return ResponseEntity.ok(usuarios);
 	}
