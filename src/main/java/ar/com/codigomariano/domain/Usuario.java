@@ -2,6 +2,8 @@ package ar.com.codigomariano.domain;
 
 import java.time.LocalDateTime;
 
+import ar.com.codigomariano.dtos.DTO;
+import ar.com.codigomariano.dtos.UsuarioAdminDTO;
 import ar.com.codigomariano.dtos.UsuarioDTO;
 import ar.com.codigomariano.forms.UsuarioForm;
 import ar.com.codigomariano.helpers.Utils;
@@ -15,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "USUARIOS")
-public class Usuario extends Exponible<UsuarioForm, UsuarioDTO> {
+public class Usuario extends Exponible<UsuarioForm> {
 	public static final String ERR_EMAIL_OBLIGATORIO = "El email es obligatorio";
 	public static final String ERR_EMAIL_MAX_LENGTH = "El email no puede superar los %d caracteres";
 	public static final String ERR_EMAIL_INVALID = "El email no tiene un formato válido";
@@ -77,14 +79,16 @@ public class Usuario extends Exponible<UsuarioForm, UsuarioDTO> {
 	}
 	
 	@Override
-	public UsuarioDTO asDTO() {
-		UsuarioDTO dto = new UsuarioDTO();
-		dto.setEmail(getEmail());
-		dto.setFullName(getNombreCompleto());
-		
-		return dto;
+	public Class<? extends DTO> dtoForList() {
+		return UsuarioAdminDTO.class;
+	}
+
+	@Override
+	public Class<? extends DTO> dtoForAPI() {
+		return UsuarioDTO.class;
 	}
 		
+	
 	// SETTER & GETTERS
 	public String getEmail() {
 		return email;

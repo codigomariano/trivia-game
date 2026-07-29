@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.codigomariano.dtos.UsuarioDTO;
+import ar.com.codigomariano.dtos.DTO;
 import ar.com.codigomariano.forms.RegistracionForm;
 import ar.com.codigomariano.services.UsuarioService;
 import ar.com.codigomariano.validators.RegistracionFormValidator;
@@ -20,23 +20,24 @@ import ar.com.codigomariano.validators.RegistracionFormValidator;
 @RestController
 public class UsuarioAPI {
 	public static final String LIST_USERS_URL = "/api/users";
-	public static final String SAVE_USERS_URL = "/api/users/register";
+	public static final String REGISTER_USERS_URL = "/api/users/register";
 	
 	@Autowired
 	private UsuarioService servicio;
 	@Autowired
 	private RegistracionFormValidator validator;
 	
+	
 	@GetMapping(value = LIST_USERS_URL,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<UsuarioDTO>> list() {
-		List<UsuarioDTO> usuarios = this.servicio.exponer();
+	public ResponseEntity<List<DTO>> list() {
+		List<DTO> usuarios = this.servicio.exponer();
 		
 		return ResponseEntity.ok(usuarios);
 	}
 	
-	@PostMapping(value = SAVE_USERS_URL,
+	@PostMapping(value = REGISTER_USERS_URL,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> registar(@RequestBody RegistracionForm form) {

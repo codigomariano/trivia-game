@@ -1,8 +1,11 @@
 package ar.com.codigomariano.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UsuarioDTO implements DTO{
 	private String email;
-	private String fullName;
+	@JsonProperty(value = "fullName")
+	private String nombreCompleto;
 	
 	
 	public String getEmail() {
@@ -11,10 +14,10 @@ public class UsuarioDTO implements DTO{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getFullName() {
-		return fullName;
+	public String getNombreCompleto() {
+		return nombreCompleto;
 	}
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
 	}
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ar.com.codigomariano.domain.Usuario;
+import ar.com.codigomariano.dtos.DTO;
 import ar.com.codigomariano.forms.DeletionForm;
 import ar.com.codigomariano.forms.UsuarioForm;
 import ar.com.codigomariano.services.UsuarioService;
@@ -44,7 +44,7 @@ public class UsuarioAdminController extends AdminController {
 	
 	@GetMapping(value = LIST_USERS_URL)
 	public String init(Model modelo) {
-		List<Usuario> usuarios = this.servicio.listAll();
+		List<DTO> usuarios = this.servicio.list();
 		modelo.addAttribute(LIST_ATTRIBUTE, usuarios);
 		
 		return LIST_USERS_VIEW;
