@@ -29,6 +29,9 @@
 	                    <li sec:authorize="isAuthenticated() && hasRole('ROLE_ADMINISTRADOR')" class="nav-item guest-only">
 	                        <a class="nav-link" th:href="@{/admin/dashboard}" th:text="#{navbar.admin}"></a>
 	                    </li>
+	                    <li sec:authorize="isAuthenticated()" class="nav-item logged-in-only">
+                        	<a class="btn btn-outline-light ms-2 btn-sm" th:href="@{/logout}" th:text="#{navbar.logout}"></a>
+                    	</li>
 	                </ul>
 	            </div>
 	        </div>
