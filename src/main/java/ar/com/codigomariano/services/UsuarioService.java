@@ -7,6 +7,8 @@ import ar.com.codigomariano.forms.UsuarioForm;
 
 public interface UsuarioService extends ExponibleService<Usuario, UsuarioForm, UsuarioDTO>{
 	
+	public void login(String email);
+	
 	public void registrar(String email);
 	
 	public void registrar(String email, String username, String fullName);

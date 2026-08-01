@@ -1,16 +1,26 @@
 package ar.com.codigomariano.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import ar.com.codigomariano.dtos.DTO;
 import ar.com.codigomariano.dtos.UsuarioAdminDTO;
 import ar.com.codigomariano.dtos.UsuarioDTO;
+import ar.com.codigomariano.enums.Rol;
 import ar.com.codigomariano.forms.UsuarioForm;
 import ar.com.codigomariano.helpers.Utils;
 import ar.com.codigomariano.helpers.ValidationUtils;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -46,6 +56,12 @@ public class Usuario extends Exponible<UsuarioForm> {
 	@JoinColumn(name = "IMAGEN_ID", nullable = true)
 	private Imagen imagen;
 	
+	@Enumerated(EnumType.ORDINAL)
+	@ElementCollection(targetClass = Rol.class)
+	@CollectionTable(name = "ROLES_USUARIOS", joinColumns = @JoinColumn(name = "USUARIO_ID"))
+	@Column(name = "ROL_ID")
+	private List<Rol> roles;
+	
 	
 	// Sólo para Hibernate
 	Usuario() {
@@ -57,9 +73,16 @@ public class Usuario extends Exponible<UsuarioForm> {
 	}
 	
 	public Usuario(String email, String username) {
+		this(email, username, false);
+	}
+	
+	public Usuario(String email, String username, boolean isAdmin) {
 		this.fechaCreacion = LocalDateTime.now();
+		this.roles = new ArrayList<Rol>();
 		setUsername(username);
 		setEmail(email);
+		this.roles.add(Rol.JUGADOR);
+		if(isAdmin) this.roles.add(Rol.ADMINISTRADOR);
 	}
 
 	
@@ -89,6 +112,16 @@ public class Usuario extends Exponible<UsuarioForm> {
 	}
 		
 	
+	public List<GrantedAuthority> collectAuthorities() {
+		List<GrantedAuthority> credentials = new ArrayList<GrantedAuthority>();
+		
+		for (Rol rol : this.roles) {
+			credentials.add(new SimpleGrantedAuthority(rol.getSecurityName()));
+		}
+		
+		return credentials;
+	}
+	
 	// SETTER & GETTERS
 	public String getEmail() {
 		return email;
@@ -110,7 +143,11 @@ public class Usuario extends Exponible<UsuarioForm> {
 		return fechaCreacion;
 	}
 	
+	public boolean isAdmin() {
+		return this.roles.contains(Rol.ADMINISTRADOR);
+	}
 	
+
 	public void setEmail(String email) {
 		if(ValidationUtils.isEmpty(email)) {
 			throw new IllegalArgumentException(ERR_EMAIL_OBLIGATORIO);

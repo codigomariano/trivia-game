@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AppController extends BaseController {
 
-	@GetMapping("/")
+	@GetMapping(value = ROOT_URL)
 	public String init() {
 		return redirect(HomeController.HOME_URL);
 	}

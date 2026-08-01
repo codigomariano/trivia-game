@@ -8,6 +8,7 @@ import java.util.Random;
 
 import ar.com.codigomariano.domain.Usuario;
 import ar.com.codigomariano.enums.OpcionMultiple;
+import ar.com.codigomariano.helpers.Utils;
 
 public class EntityHelper {
 	private static Random random = new Random(System.currentTimeMillis());
@@ -33,6 +34,15 @@ public class EntityHelper {
 	 */
 	public static String createRandomEmail() {
 		return EMAIL_PREFIX + random.nextInt() + "@dummy.com.ar";
+	}
+	
+	
+	/**
+	 * Genera un nombre de usuario válido con un valor aleatorio 
+	 * para evitar duplicados en las pruebas
+	 */
+	public static String createRandomUsername() {
+		return Utils.generarUsername();
 	}
 	
 

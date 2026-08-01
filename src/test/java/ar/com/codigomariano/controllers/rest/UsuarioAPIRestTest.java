@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 
 import ar.com.codigomariano.dtos.UsuarioDTO;
 import ar.com.codigomariano.forms.RegistracionForm;
+import ar.com.codigomariano.utilities.EntityHelper;
 
 public class UsuarioAPIRestTest extends BaseAPIRestTest{
 
@@ -45,7 +46,7 @@ public class UsuarioAPIRestTest extends BaseAPIRestTest{
 	@Test
 	public void testRegistrarUsuario() {
 		RegistracionForm form = new RegistracionForm();
-		form.setEmail("test-api@dummy.com.ar");
+		form.setEmail(EntityHelper.createRandomEmail());
 		
 		try {
 		

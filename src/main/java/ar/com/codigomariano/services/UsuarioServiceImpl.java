@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import ar.com.codigomariano.domain.Imagen;
@@ -15,12 +17,26 @@ import ar.com.codigomariano.forms.ProfileForm;
 import ar.com.codigomariano.forms.UsuarioForm;
 import ar.com.codigomariano.helpers.ValidationUtils;
 import ar.com.codigomariano.repositories.UsuarioRepository;
+import ar.com.codigomariano.security.InfoUserAuthenticationToken;
 
 @Service
 public class UsuarioServiceImpl extends ExponibleServiceImpl<Usuario, UsuarioForm, UsuarioRepository, UsuarioDTO> implements UsuarioService {
 	@Autowired
 	private UsuarioRepository repositorio;
 
+	
+	@Override
+	public void login(String email) {
+		Usuario usuario = obtener(email, null);
+		
+		InfoUserAuthenticationToken token = new InfoUserAuthenticationToken(usuario.getId(), usuario.getEmail(), usuario.collectAuthorities());
+		token.setUsername(usuario.getUsername());
+		if(usuario.getImagen() != null) token.setIdImagen(usuario.getImagen().getId());
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		
+		context.setAuthentication(token);
+	}
 	
 	@Override
 	public Usuario obtener(String email, Long id) {

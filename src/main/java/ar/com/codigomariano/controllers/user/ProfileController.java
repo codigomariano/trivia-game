@@ -18,12 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ar.com.codigomariano.controllers.BaseController;
-import ar.com.codigomariano.controllers.LoginController;
 import ar.com.codigomariano.domain.Imagen;
 import ar.com.codigomariano.forms.ProfileForm;
+import ar.com.codigomariano.security.InfoUserAuthenticationToken;
 import ar.com.codigomariano.services.ImagenService;
 import ar.com.codigomariano.services.UsuarioService;
-import ar.com.codigomariano.session.InfoSession;
 import ar.com.codigomariano.validators.ProfileFormValidator;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -52,20 +51,12 @@ public class ProfileController extends BaseController {
 	
 	@GetMapping(value =  VIEW_PROFILE_URL)
 	public String viewProfile(HttpSession session, Model model) {
-		String finalURL = PROFILE_VIEW;
+		InfoUserAuthenticationToken token = authenticationToken();
 		
-		if(estaUsuarioLogueado(session)) {
-			InfoSession info = getInfoSession(session);
-			
-			ProfileForm form = this.service.prepareProfile(info.getEmail());
-			model.addAttribute(FORM_ATTRIBUTE, form);
-			
-		} else {
-			finalURL = redirect(LoginController.SIGN_IN_URL);
-		}
+		ProfileForm form = this.service.prepareProfile(token.getCredentials());
+		model.addAttribute(FORM_ATTRIBUTE, form);
 		
-		
-		return finalURL;
+		return PROFILE_VIEW;
 	}
 	
 	

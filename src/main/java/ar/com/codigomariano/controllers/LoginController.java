@@ -1,6 +1,9 @@
 package ar.com.codigomariano.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import ar.com.codigomariano.controllers.user.ProfileController;
 import ar.com.codigomariano.forms.LoginForm;
-import ar.com.codigomariano.session.InfoSession;
+import ar.com.codigomariano.services.UsuarioService;
 import ar.com.codigomariano.validators.LoginFormValidator;
 import jakarta.servlet.http.HttpSession;
 
@@ -22,6 +25,9 @@ public class LoginController extends BaseController{
 	public static final String SIGN_IN_URL = "/signIn";
 	public static final String LOGIN_URL = "/login";
 	private static final String SIGN_IN_VIEW = "signIn";
+	
+	@Autowired
+	private UsuarioService service;
 	
 	@Autowired
 	private LoginFormValidator validator;
@@ -42,7 +48,11 @@ public class LoginController extends BaseController{
 	public String login(HttpSession session, @Validated @ModelAttribute(FORM_ATTRIBUTE) LoginForm formulario, BindingResult results) {
 		if(results.hasErrors()) return SIGN_IN_VIEW;
 		
-		session.setAttribute(INFO_ATTRIBUTE, new InfoSession(formulario.getEmail()));
+		this.service.login(formulario.getEmail());
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		
+		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
 		
 		return redirect(ProfileController.VIEW_PROFILE_URL);
 	}
