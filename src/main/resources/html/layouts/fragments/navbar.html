@@ -2,7 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   
   		<nav id="navbar" class="navbar navbar-expand-lg navbar-dark glass-nav fixed-top">
 	    	<div th:class="container">
@@ -13,18 +14,19 @@
 	            <div class="collapse navbar-collapse" id="navbarNav">
 	                <ul class="navbar-nav ms-auto align-items-center">
 	                    <li class="nav-item">
-	                        <a class="btn btn-accent ms-2" th:href="@{/game}" th:text="#{navbar.play}"></a>
+	                   		<a sec:authorize="isAuthenticated()" class="btn btn-accent ms-2" th:href="@{/game}" th:text="#{navbar.play}"></a>
+                        	<a sec:authorize="!isAuthenticated()" class="btn btn-accent ms-2" th:href="@{/game/guest}" th:text="#{navbar.play.as.guest}"></a>
 	                    </li>
-	                    <li class="nav-item guest-only">
+	                    <li sec:authorize="!isAuthenticated()" class="nav-item guest-only">
 	                        <a class="nav-link" th:href="@{/signIn}" th:text="#{navbar.login}"></a>
 	                    </li>
-	                    <li class="nav-item guest-only">
+	                    <li sec:authorize="!isAuthenticated()" class="nav-item guest-only">
 	                        <a class="nav-link" th:href="@{/signUp}" th:text="#{navbar.registro}"></a>
 	                    </li>
-	                    <li class="nav-item guest-only">
+	                    <li sec:authorize="isAuthenticated()" class="nav-item guest-only">
                         	<a class="nav-link" th:href="@{/profile/view}" th:text="#{navbar.profile}"></a>
                     	</li>
-	                    <li class="nav-item guest-only">
+	                    <li sec:authorize="isAuthenticated() && hasRole('ROLE_ADMINISTRADOR')" class="nav-item guest-only">
 	                        <a class="nav-link" th:href="@{/admin/dashboard}" th:text="#{navbar.admin}"></a>
 	                    </li>
 	                </ul>

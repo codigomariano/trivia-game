@@ -8,6 +8,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 import ar.com.codigomariano.controllers.BaseController;
+import ar.com.codigomariano.controllers.GameController;
 import ar.com.codigomariano.controllers.HomeController;
 import ar.com.codigomariano.controllers.LoginController;
 import ar.com.codigomariano.controllers.RegistracionController;
@@ -26,7 +27,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/css/**", "/fonts/**", "/images/**", "/js/**").permitAll()
 				.requestMatchers(BaseController.ROOT_URL).permitAll()
-				.requestMatchers(HomeController.HOME_URL).permitAll()
+				.requestMatchers(HomeController.HOME_URL, GameController.GAME_AS_GUEST_URL).permitAll()
 				.requestMatchers(LoginController.SIGN_IN_URL, LoginController.LOGIN_URL).permitAll()
 				.requestMatchers(RegistracionController.SIGN_UP_URL, RegistracionController.REGISTRACION_URL).permitAll()
 				.requestMatchers(AdminController.ADMIN_URL + "/**").hasRole(Rol.ADMINISTRADOR.name())
