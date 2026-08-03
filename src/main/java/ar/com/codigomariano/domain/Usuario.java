@@ -117,6 +117,7 @@ public class Usuario extends Exponible<UsuarioForm> {
 		
 		for (Rol rol : this.roles) {
 			credentials.add(new SimpleGrantedAuthority(rol.getSecurityName()));
+			credentials.addAll(rol.getSecurityPermissions());
 		}
 		
 		return credentials;

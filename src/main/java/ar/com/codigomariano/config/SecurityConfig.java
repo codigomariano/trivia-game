@@ -30,7 +30,7 @@ public class SecurityConfig {
 				.requestMatchers(HomeController.HOME_URL, GameController.GAME_AS_GUEST_URL).permitAll()
 				.requestMatchers(LoginController.SIGN_IN_URL, LoginController.LOGIN_URL).permitAll()
 				.requestMatchers(RegistracionController.SIGN_UP_URL, RegistracionController.REGISTRACION_URL).permitAll()
-				.requestMatchers(AdminController.ADMIN_URL + "/**").hasRole(Rol.ADMINISTRADOR.name())
+				.requestMatchers(AdminController.ADMIN_URL + "/**").hasAnyRole(Rol.ADMINISTRADOR.name(), Rol.ARBITRO.name())
 				.anyRequest().authenticated())
 				.formLogin(page -> page.loginPage(LoginController.SIGN_IN_URL))
 				.build();

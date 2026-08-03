@@ -26,7 +26,7 @@
 	                    <li sec:authorize="isAuthenticated()" class="nav-item guest-only">
                         	<a class="nav-link" th:href="@{/profile/view}" th:text="#{navbar.profile}"></a>
                     	</li>
-	                    <li sec:authorize="isAuthenticated() && hasRole('ROLE_ADMINISTRADOR')" class="nav-item guest-only">
+	                    <li sec:authorize="isAuthenticated() && hasAnyRole('ROLE_ADMINISTRADOR', 'ROLE_ARBITRO')" class="nav-item guest-only">
 	                        <a class="nav-link" th:href="@{/admin/dashboard}" th:text="#{navbar.admin}"></a>
 	                    </li>
 	                    <li sec:authorize="isAuthenticated()" class="nav-item logged-in-only">
