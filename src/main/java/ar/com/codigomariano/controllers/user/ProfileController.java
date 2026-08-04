@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ar.com.codigomariano.controllers.BaseController;
+import ar.com.codigomariano.controllers.BaseWebController;
 import ar.com.codigomariano.domain.Imagen;
 import ar.com.codigomariano.forms.ProfileForm;
 import ar.com.codigomariano.security.InfoUserAuthenticationToken;
@@ -28,10 +28,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class ProfileController extends BaseController {
-	public static final String VIEW_PROFILE_URL = "/profile/view";
-	public static final String VIEW_PICTURE_URL = "/profile/picture/view";
-	public static final String SAVE_PROFILE_URL = "/profile/save";
+public class ProfileController extends BaseWebController {
+	protected static final String BASE_PROFILE_URL = BASE_URL + "/profile";
+	public static final String VIEW_PROFILE_URL = BASE_PROFILE_URL + "/view";
+	public static final String SAVE_PROFILE_URL = BASE_PROFILE_URL + "/save";
+	public static final String VIEW_PICTURE_URL = BASE_PROFILE_URL +"/picture/view";
 	private static final String PROFILE_VIEW = "/user/profile";
 	
 	@Autowired

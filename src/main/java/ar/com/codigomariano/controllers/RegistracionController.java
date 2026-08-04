@@ -16,9 +16,9 @@ import ar.com.codigomariano.services.UsuarioService;
 import ar.com.codigomariano.validators.RegistracionFormValidator;
 
 @Controller
-public class RegistracionController extends BaseController{	
-	public static final String SIGN_UP_URL = "/signUp";
-	public static final String REGISTRACION_URL = "/registro";
+public class RegistracionController extends BaseWebController{	
+	public static final String SIGN_UP_URL = BASE_URL + "/signUp";
+	public static final String REGISTRACION_URL = BASE_URL + "/registro";
 	private static final String SIGN_UP_VIEW = "signUp";
 	
 	@Autowired

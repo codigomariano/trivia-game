@@ -14,23 +14,23 @@
 	            <div class="collapse navbar-collapse" id="navbarNav">
 	                <ul class="navbar-nav ms-auto align-items-center">
 	                    <li class="nav-item">
-	                   		<a sec:authorize="isAuthenticated()" class="btn btn-accent ms-2" th:href="@{/game}" th:text="#{navbar.play}"></a>
-                        	<a sec:authorize="!isAuthenticated()" class="btn btn-accent ms-2" th:href="@{/game/guest}" th:text="#{navbar.play.as.guest}"></a>
+	                   		<a sec:authorize="isAuthenticated()" class="btn btn-accent ms-2" th:href="@{/web/game}" th:text="#{navbar.play}"></a>
+                        	<a sec:authorize="!isAuthenticated()" class="btn btn-accent ms-2" th:href="@{/web/game/guest}" th:text="#{navbar.play.as.guest}"></a>
 	                    </li>
 	                    <li sec:authorize="!isAuthenticated()" class="nav-item guest-only">
-	                        <a class="nav-link" th:href="@{/signIn}" th:text="#{navbar.login}"></a>
+	                        <a class="nav-link" th:href="@{/web/signIn}" th:text="#{navbar.login}"></a>
 	                    </li>
 	                    <li sec:authorize="!isAuthenticated()" class="nav-item guest-only">
-	                        <a class="nav-link" th:href="@{/signUp}" th:text="#{navbar.registro}"></a>
+	                        <a class="nav-link" th:href="@{/web/signUp}" th:text="#{navbar.registro}"></a>
 	                    </li>
 	                    <li sec:authorize="isAuthenticated()" class="nav-item guest-only">
-                        	<a class="nav-link" th:href="@{/profile/view}" th:text="#{navbar.profile}"></a>
+                        	<a class="nav-link" th:href="@{/web/profile/view}" th:text="#{navbar.profile}"></a>
                     	</li>
 	                    <li sec:authorize="isAuthenticated() && hasAnyRole('ROLE_ADMINISTRADOR', 'ROLE_ARBITRO')" class="nav-item guest-only">
-	                        <a class="nav-link" th:href="@{/admin/dashboard}" th:text="#{navbar.admin}"></a>
+	                        <a class="nav-link" th:href="@{/web/admin/dashboard}" th:text="#{navbar.admin}"></a>
 	                    </li>
 	                    <li sec:authorize="isAuthenticated()" class="nav-item logged-in-only">
-                        	<a class="btn btn-outline-light ms-2 btn-sm" th:href="@{/logout}" th:text="#{navbar.logout}"></a>
+                        	<a class="btn btn-outline-light ms-2 btn-sm" th:href="@{/web/logout}" th:text="#{navbar.logout}"></a>
                     	</li>
 	                </ul>
 	            </div>

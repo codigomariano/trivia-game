@@ -8,7 +8,7 @@
 		<div id="view-users-list" class="view-section" layout:fragment="page-content">
 			<div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 th:text="#{administracion.users.section.title}"></h2>
-                <a th:href="@{/admin/user/edit}" class="btn btn-accent" th:text="#{user.create.btn}"></a>
+                <a th:href="@{/web/admin/user/edit}" class="btn btn-accent" th:text="#{user.create.btn}"></a>
             </div>
             <div class="glass-card p-0 overflow-hidden">
                 <table class="table table-borderless table-hover table-dark mb-0 custom-table">
@@ -30,8 +30,8 @@
 	                     	<td th:text="${user.username}"></td>
 	                     	<td th:text="${user.nombreCompleto}"></td>
 	                     	<td style="text-align: right;">
-	                     		<a th:href="@{/admin/user/edit?id=} + ${user.id}" class="btn btn-sm btn-outline-light" th:text="#{edit.btn}"></a>
-	                     		<button th:id="${'btnDelete-' + user.id}" class="btn btn-sm btn-accent" onclick="confirmarEliminacion(this)" th:data-id="${user.id}" th:data-url="@{/admin/user/delete}" th:data-email="${user.email}" data-bs-toggle="modal" data-bs-target="#deletionModal" th:text="#{delete.btn}"></button>
+	                     		<a th:href="@{/web/admin/user/edit?id=} + ${user.id}" class="btn btn-sm btn-outline-light" th:text="#{edit.btn}"></a>
+	                     		<button th:id="${'btnDelete-' + user.id}" class="btn btn-sm btn-accent" onclick="confirmarEliminacion(this)" th:data-id="${user.id}" th:data-url="@{/web/admin/user/delete}" th:data-email="${user.email}" data-bs-toggle="modal" data-bs-target="#deletionModal" th:text="#{delete.btn}"></button>
 	                     	</td>
 	                    </tr>
                     </tbody>

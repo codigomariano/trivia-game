@@ -7,9 +7,9 @@ import ar.com.codigomariano.session.InfoSession;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class GameController extends BaseController {
-	public static final String GAME_URL = "/game";
-	public static final String GAME_AS_GUEST_URL = "/game/guest";
+public class GameController extends BaseWebController {
+	public static final String GAME_URL = BASE_URL + "/game";
+	public static final String GAME_AS_GUEST_URL = GAME_URL +  "/guest";
 	private static final String GAME_WELCOME_VIEW = "/game/welcome";
 	
 	

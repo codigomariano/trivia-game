@@ -21,9 +21,9 @@ import ar.com.codigomariano.validators.LoginFormValidator;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class LoginController extends BaseController{
-	public static final String SIGN_IN_URL = "/signIn";
-	public static final String LOGIN_URL = "/login";
+public class LoginController extends BaseWebController{
+	public static final String SIGN_IN_URL = BASE_URL + "/signIn";
+	public static final String LOGIN_URL = BASE_URL + "/login";
 	private static final String SIGN_IN_VIEW = "signIn";
 	
 	@Autowired

@@ -8,7 +8,7 @@
   		<div id="view-home" class="view-section text-center" layout:fragment="page-content">
             <h1 class="display-4 fw-bold text-light mb-4" th:text="#{home.section.title}"></h1>
             <p class="text-muted-custom mb-5 fs-5" th:text="#{home.section.description}"></p>
-            <a href="/game" class="btn btn-accent btn-lg px-5 py-3 me-3" th:text="#{play.now.btn}"></a>
+            <a th:href="@{/web/game}" class="btn btn-accent btn-lg px-5 py-3 me-3" th:text="#{play.now.btn}"></a>
   		</div>
 	</body>
 </html>

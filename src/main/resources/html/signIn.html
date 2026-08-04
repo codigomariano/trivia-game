@@ -10,7 +10,7 @@
 	          <div class="col-md-5">
 	              <div class="glass-card p-5">
 	                  <h2 class="text-center mb-4" th:text="#{login.section.title}"></h2>
-	                  <form id="loginFrm" th:object="${form}" th:action="@{/login}" method="post">
+	                  <form id="loginFrm" th:object="${form}" th:action="@{/web/login}" method="post">
 	                      <div class="mb-3">
 	                          <label class="form-label text-muted-custom" th:text="#{email.field}"></label>
 	                          <input id="email" th:field="*{email}" type="email" th:class="'form-control glass-input' + ${#fields.hasErrors('email') ? ' is-invalid' : ''}" placeholder="Email" required="required" th:maxlength="${form.emailMaxLength}">
@@ -18,7 +18,7 @@
 	                      </div>
 	                      <button id="loginBtn" type="submit" class="btn btn-accent w-100 mb-3" th:text="#{login.btn}"></button>
 	                      <div class="text-center">
-	                          <a th:href="@{/signUp}" class="text-muted-custom" th:text="#{no.account}"></a>
+	                          <a th:href="@{/web/signUp}" class="text-muted-custom" th:text="#{no.account}"></a>
 	                      </div>
 	                  </form>
 	              </div>

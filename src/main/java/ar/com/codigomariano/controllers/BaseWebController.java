@@ -6,8 +6,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import ar.com.codigomariano.security.InfoUserAuthenticationToken;
 
-public abstract class BaseController {
+public abstract class BaseWebController {
 	public static final String ROOT_URL = "/";
+	public static final String BASE_URL = "/web";
 	protected final static String ID_PARAMETER = "id";
 	
 	protected final static String INFO_ATTRIBUTE = "info";

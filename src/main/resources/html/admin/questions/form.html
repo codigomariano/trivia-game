@@ -10,7 +10,7 @@
 			<h2 th:if="${!form.esCreacion()}" class="mb-4" th:text="#{administracion.questions.create.section.title(${form.type})}"></h2>
             		
             <div class="glass-card p-4">
-                <form id="questionFrm" th:object="${form}" th:action="@{/admin/pregunta/save/} + ${form.type}" method="post">
+                <form id="questionFrm" th:object="${form}" th:action="@{/web/admin/pregunta/save/} + ${form.type}" method="post">
                     <div class="row">
                     	<div class="col-md-12 mb-3">
                             <label for="codigo" class="form-label text-muted-custom" th:text="#{code.field}"></label>
@@ -55,7 +55,7 @@
                                
                     <div class="text-end mt-4">
                         <button id="createBtn" type="submit" class="btn btn-accent btn-outline-light me-2" th:text="#{save.btn}"></button>
-                        <a id="cancelBtn" th:href="@{/admin/pregunta/list}" class="btn btn-outline-light me-2" th:text="#{cancel.btn}"></a>
+                        <a id="cancelBtn" th:href="@{/web/admin/pregunta/list}" class="btn btn-outline-light me-2" th:text="#{cancel.btn}"></a>
                     </div>
                 </form>
             </div>		

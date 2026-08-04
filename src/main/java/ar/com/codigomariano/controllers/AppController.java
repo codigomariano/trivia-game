@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AppController extends BaseController {
+public class AppController extends BaseWebController {
 
 	@GetMapping(value = ROOT_URL)
 	public String init() {

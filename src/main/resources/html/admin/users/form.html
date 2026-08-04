@@ -10,7 +10,7 @@
 			<h2 th:if="${!form.esCreacion()}" class="mb-4" th:text="#{administracion.users.edition.section.title}"></h2>
             
             <div class="glass-card p-4">
-                <form id="userFrm" th:object="${form}" th:action="@{/admin/user/save}" method="post">
+                <form id="userFrm" th:object="${form}" th:action="@{/web/admin/user/save}" method="post">
                     <div class="row">
                         <div class="col mb-3">
                             <label for="email" class="form-label text-muted-custom" th:text="#{email.field}"></label>
@@ -37,7 +37,7 @@
                     
                     <div class="text-end mt-4">
                         <button id="createBtn" type="submit" class="btn btn-accent btn-outline-light me-2" th:text="#{save.btn}"></button>
-                        <a id="cancelBtn" th:href="@{/admin/user/list}" class="btn btn-outline-light me-2" th:text="#{cancel.btn}"></a>
+                        <a id="cancelBtn" th:href="@{/web/admin/user/list}" class="btn btn-outline-light me-2" th:text="#{cancel.btn}"></a>
                     </div>
                 </form>
             </div>		

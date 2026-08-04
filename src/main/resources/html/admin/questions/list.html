@@ -8,7 +8,7 @@
 		<div id="view-questions-list" class="view-section" layout:fragment="page-content">
 			<div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 th:text="#{administracion.questions.section.title}"></h2>
-                <a th:href="@{/admin/pregunta/choose}" class="btn btn-accent" th:text="#{question.create.btn}"></a>
+                <a th:href="@{/web/admin/pregunta/choose}" class="btn btn-accent" th:text="#{question.create.btn}"></a>
             </div>
             <div class="glass-card p-0 overflow-hidden">
                 <table class="table table-borderless table-hover table-dark mb-0 custom-table">
@@ -35,8 +35,8 @@
 	                     		<span th:if="${q.estaActiva()}" class="badge bg-success" th:text="#{question.activa}"></span>
 	                     	</td>
 	                     	<td style="text-align: right;">
-	                     		<a th:href="@{/admin/pregunta/edit/} + ${q.type} + '?id=' + ${q.id}" class="btn btn-sm btn-outline-light" th:text="#{edit.btn}"></a>
-	                     		<button th:if="${q.estaActiva()}" th:id="${'btnDelete-' + q.id}" class="btn btn-sm btn-accent" onclick="confirmarEliminacion(this)" th:data-id="${q.id}" th:data-url="@{/admin/pregunta/delete/} + ${q.type}" th:data-code="${q.codigo}" data-bs-toggle="modal" data-bs-target="#deletionModal" th:text="#{delete.btn}"></button>
+	                     		<a th:href="@{/web/admin/pregunta/edit/} + ${q.type} + '?id=' + ${q.id}" class="btn btn-sm btn-outline-light" th:text="#{edit.btn}"></a>
+	                     		<button th:if="${q.estaActiva()}" th:id="${'btnDelete-' + q.id}" class="btn btn-sm btn-accent" onclick="confirmarEliminacion(this)" th:data-id="${q.id}" th:data-url="@{/web/admin/pregunta/delete/} + ${q.type}" th:data-code="${q.codigo}" data-bs-toggle="modal" data-bs-target="#deletionModal" th:text="#{delete.btn}"></button>
 	                     	</td>
 	                    </tr>
                     </tbody>

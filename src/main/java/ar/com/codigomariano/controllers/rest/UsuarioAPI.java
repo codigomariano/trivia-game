@@ -18,9 +18,10 @@ import ar.com.codigomariano.services.UsuarioService;
 import ar.com.codigomariano.validators.RegistracionFormValidator;
 
 @RestController
-public class UsuarioAPI {
-	public static final String LIST_USERS_URL = "/api/users";
-	public static final String REGISTER_USERS_URL = "/api/users/register";
+public class UsuarioAPI extends BaseAPIController {
+	public static final String BASE_USERS_API = BASE_URL + "/users";
+	public static final String LIST_USERS_URL = BASE_USERS_API;
+	public static final String REGISTER_USERS_URL = BASE_USERS_API + "/register";
 	
 	@Autowired
 	private UsuarioService servicio;

@@ -10,9 +10,9 @@
                 <div class="col-md-6">
                     <div class="glass-card p-5 text-center">
                         <h2 class="mb-4" th:text="#{profile.section.title}"></h2>
-                        <form id="profileFrm" th:object="${form}" th:action="@{/profile/save}" enctype="multipart/form-data" method="post">
+                        <form id="profileFrm" th:object="${form}" th:action="@{/web/profile/save}" enctype="multipart/form-data" method="post">
 	                        <div class="position-relative d-inline-block mb-4">
-	                            <img th:if="${form.mostrarImagen()}" th:src="@{'/profile/picture/view?id=' + ${form.idPicture}}" alt="Profile Picture" class="rounded-circle shadow border border-3 border-secondary img-fluid avatar-img">
+	                            <img th:if="${form.mostrarImagen()}" th:src="@{'/web/profile/picture/view?id=' + ${form.idPicture}}" alt="Profile Picture" class="rounded-circle shadow border border-3 border-secondary img-fluid avatar-img">
 	                        	<img th:if="${!form.mostrarImagen()}" src="/images/profile.png" alt="Avatar" class="rounded-circle shadow border border-3 border-secondary img-fluid avatar-img">
 	                        	<button type="button" class="btn btn-sm btn-accent position-absolute bottom-0 end-0 rounded-circle upload-icon" onclick="$('#picture').click();">✎</button>
 	                        	<input id="picture" name="file" type="file" class="d-none"/>
