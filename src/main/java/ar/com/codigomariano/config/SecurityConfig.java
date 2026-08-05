@@ -15,6 +15,7 @@ import ar.com.codigomariano.controllers.LoginController;
 import ar.com.codigomariano.controllers.RegistracionController;
 import ar.com.codigomariano.controllers.admin.AdminController;
 import ar.com.codigomariano.controllers.rest.BaseAPIController;
+import ar.com.codigomariano.controllers.rest.LoginAPI;
 import ar.com.codigomariano.enums.Rol;
 
 @Configuration
@@ -28,7 +29,9 @@ public class SecurityConfig {
 		return http
 				.securityMatcher(BaseAPIController.BASE_URL + "/**")
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(request -> request.anyRequest().authenticated())
+				.authorizeHttpRequests(request -> request
+													.requestMatchers(LoginAPI.LOGIN_URL).permitAll()
+													.anyRequest().authenticated())
 				.csrf(csrf -> csrf.disable())
 				.build();
 		
