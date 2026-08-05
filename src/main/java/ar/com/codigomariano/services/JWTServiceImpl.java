@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -38,6 +37,10 @@ public class JWTServiceImpl implements JWTService {
 	}
 
 	
+	/**
+	 * Genera un token JWT utilizando la información del usuario
+	 * recibida como parámetro.
+	 */
 	private String buildToken(Usuario user) {
 		return JWT.create()
 				.withKeyId("my-app-"+user.getId()+"-"+System.currentTimeMillis())
@@ -47,7 +50,10 @@ public class JWTServiceImpl implements JWTService {
 				.sign(Algorithm.HMAC512("my-password-secreta"));
 	}
 	
-	
+	/**
+	* Convierte los roles y permisos del usuario en una colección
+	* de cadenas de texto para incluirlos dentro del token JWT.
+	 */
 	private List<String> prepararPermisos(Usuario user) {
 		
 		return user.collectAuthorities()
