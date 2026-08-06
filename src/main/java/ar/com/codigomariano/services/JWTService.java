@@ -7,4 +7,6 @@ public interface JWTService extends Service {
 	
 	public void buildAuthenticationContext(String token);
 	
+	public boolean isValidToken(String token);
+	
 }

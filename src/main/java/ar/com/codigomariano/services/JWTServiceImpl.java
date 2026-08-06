@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -29,6 +30,12 @@ public class JWTServiceImpl implements JWTService {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Value("${jwt.token.ttl.seconds}")
+	private Long tiempoVidaToken;
+	
+	@Value("${jwt.secret.password}")
+	private String secretPassword;
 	
 	
 	@Override
@@ -60,6 +67,17 @@ public class JWTServiceImpl implements JWTService {
 		context.setAuthentication(authorization);
 	}
 	
+	
+	@Override
+	public boolean isValidToken(String token) {
+		DecodedJWT decodedToken = JWT.decode(token);
+		
+		Instant instant = decodedToken.getExpiresAtAsInstant();
+		
+		return Instant.now().isBefore(instant);
+	}
+	
+	
 	/**
 	 * Genera un token JWT utilizando la información del usuario
 	 * recibida como parámetro.
@@ -67,11 +85,11 @@ public class JWTServiceImpl implements JWTService {
 	private String buildToken(Usuario user) {
 		return JWT.create()
 				.withKeyId("my-app-"+user.getId()+"-"+System.currentTimeMillis())
-				.withExpiresAt(Instant.now().plusSeconds(300))
+				.withExpiresAt(Instant.now().plusSeconds(this.tiempoVidaToken))
 				.withClaim(KEY_ID, user.getId())
 				.withClaim(KEY_EMAIL, user.getEmail())
 				.withClaim(KEY_AUTHO, prepararPermisos(user))
-				.sign(Algorithm.HMAC512("my-password-secreta"));
+				.sign(Algorithm.HMAC512(this.secretPassword));
 	}
 	
 	/**

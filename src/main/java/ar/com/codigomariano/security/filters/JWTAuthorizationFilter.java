@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -25,12 +26,22 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		if(existsJwtToken(request)) {
 			String token = fetchToken(request);
 			
-			this.jwtService.buildAuthenticationContext(token);
+			if(isValid(token)) {
+				this.jwtService.buildAuthenticationContext(token);				
+			} else {
+				SecurityContextHolder.clearContext();
+			}
+			
 		}
 
 		filterChain.doFilter(request, response);
 	}
 
+	
+	private boolean isValid(String token) {
+		return this.jwtService.isValidToken(token);
+	}
+	
 	
 	private boolean existsJwtToken(HttpServletRequest request) {
 		String header = fetchHeader(request);
