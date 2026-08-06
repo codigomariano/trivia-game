@@ -1,5 +1,6 @@
 package ar.com.codigomariano.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import ar.com.codigomariano.controllers.BaseWebController;
 import ar.com.codigomariano.controllers.GameController;
@@ -17,11 +19,13 @@ import ar.com.codigomariano.controllers.admin.AdminController;
 import ar.com.codigomariano.controllers.rest.BaseAPIController;
 import ar.com.codigomariano.controllers.rest.LoginAPI;
 import ar.com.codigomariano.enums.Rol;
+import ar.com.codigomariano.security.filters.JWTAuthorizationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
+	@Autowired
+	private JWTAuthorizationFilter jwtFilter;
 	
 	@Bean
 	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
@@ -33,6 +37,7 @@ public class SecurityConfig {
 													.requestMatchers(LoginAPI.LOGIN_URL).permitAll()
 													.anyRequest().authenticated())
 				.csrf(csrf -> csrf.disable())
+				.addFilterAfter(this.jwtFilter, BasicAuthenticationFilter.class)
 				.build();
 		
 	}
