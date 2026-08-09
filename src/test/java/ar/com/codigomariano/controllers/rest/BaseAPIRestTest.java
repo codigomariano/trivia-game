@@ -3,6 +3,9 @@ package ar.com.codigomariano.controllers.rest;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpRequest.Builder;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,18 +32,27 @@ public abstract class BaseAPIRestTest extends BaseContextTest {
 	}
 	
 	
+	protected HttpRequest buildRequest(String forPath) {
+		Map<String, String> headers = new HashMap<String, String>();
+		
+		headers.put(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+
+		return buildRequest(forPath, headers);
+	}
+	
 	/**
 	 * Crea una solicitud HTTP de tipo GET lista para ser enviada
 	 * mediante un cliente HTTP
 	 */
-	protected HttpRequest buildRequest(String forPath) {
+	protected HttpRequest buildRequest(String forPath, Map<String, String> headers) {
 		URI uri = buildURLForPath(forPath);
 		
-		return HttpRequest
-				.newBuilder(uri)
-				.GET()
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.build();
+		Builder req = HttpRequest.newBuilder(uri).GET();
+		for (String key : headers.keySet()) {
+			req.header(key, headers.get(key));
+		}
+		
+		return req.build();
 	}
 	
 	/**
