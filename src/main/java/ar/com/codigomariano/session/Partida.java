@@ -1,10 +1,10 @@
 package ar.com.codigomariano.session;
 
-public class InfoSession {
+public class Partida {
 	private Integer puntos;
 	
 	
-	public InfoSession() {
+	public Partida() {
 		this.puntos = 0;
 	}
 

@@ -8,7 +8,7 @@
 	<body>
 		<div id="view-welcome" class="view-section" layout:fragment="page-content">
 	      	<h1 class="display-4 fw-bold text-light mb-4" th:text="#{game.init.question}"></h1>
-            <p class="text-muted-custom mb-5 fs-5" sec:authentication="email"></p>
+            <p sec:authorize="isAuthenticated()" sec:authentication="email" class="text-muted-custom mb-5 fs-5"></p>
             <p class="text-muted-custom mb-5 fs-5" th:text="#{game.init.welcome.points(${session.info.puntos})}"></p>
             <a href="" class="btn btn-accent btn-lg px-5 py-3 me-3" th:text="#{play.now.btn}"></a>
 	 	</div>	
