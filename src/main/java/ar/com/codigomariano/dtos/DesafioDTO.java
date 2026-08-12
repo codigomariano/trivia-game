@@ -48,4 +48,7 @@ public class DesafioDTO extends BaseDTO {
 	public void setIndexCorrecto(int indexCorrecto) {
 		this.indexCorrecto = indexCorrecto;
 	}
+	public boolean esRespuestaCorrecta(int indexSeleccionado) {
+		return this.indexCorrecto == indexSeleccionado;
+	}
 }

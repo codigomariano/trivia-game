@@ -19,26 +19,30 @@
                             </span>
                         </div>
                         
-                        <!-- Pregunta -->
-                        <h2 class="mb-5 text-light" th:text="${desafio.texto}"></h2>
-                        
-                        <!-- Opciones -->
-                        <div class="d-grid gap-3 mb-5">
-	                        <div th:each="opt, stat : ${desafio.opciones}" class="input-group mb-3 glass-input-group">
-		                        <div class="input-group-text glass-addon">
-		                            <input th:id="${'opt_' + opt}" name="respuestaElegida" type="radio" th:value="${stat.index}" class="form-check-input mt-0">
-		                        </div>
-		                        <input th:id="${'opt_' + opt + '_text'}" type="text" th:value="${opt}" class="btn btn-outline-light btn-lg answer-btn" readonly="readonly">
-	                    	</div>
-                        </div>
-                        
-                        <!-- Botón Siguiente -->
-                        <div class="text-end">
-                            <a th:href="@{/web/game/question}" class="btn btn-accent px-4 py-2">
-                            	<span th:text="#{question.next}"></span>
-                            	<i class="fa-solid fa-angles-right"></i>
-                            </a>
-                        </div>
+                         <form id="answerFrm" th:object="${form}" th:action="@{/web/game/answer}" method="post">
+	                        <!-- Pregunta -->
+	                        <h2 class="mb-5 text-light" th:text="${desafio.texto}"></h2>
+	                        
+	                        <!-- Opciones -->
+	                        <div class="d-grid gap-3 mb-5">
+		                        <div th:each="opt, stat : ${desafio.opciones}" class="input-group mb-3 glass-input-group">
+			                        <div class="input-group-text glass-addon">
+			                            <input th:id="${'opt_' + opt}" name="indiceRespuestaElegia" type="radio" th:value="${stat.index}" class="form-check-input mt-0">
+			                        </div>
+			                        <input th:id="${'opt_' + opt + '_text'}" type="text" th:value="${opt}" class="btn btn-outline-light btn-lg answer-btn" readonly="readonly">
+		                    	</div>
+	                        </div>
+	                        
+	                        <!-- Botón Siguiente -->
+	                        <div class="text-end">
+	                            <button type="submit" class="btn btn-accent px-4 py-2">
+	                            	<span th:text="#{question.next}"></span>
+	                            	<i class="fa-solid fa-angles-right"></i>
+	                            </button>
+	                        </div>
+	                        
+	                        <input id="id" type="hidden" th:field="*{idPregunta}">
+                        </form>
                     </div>
                 </div>
             </div>

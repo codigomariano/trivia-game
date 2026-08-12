@@ -1,0 +1,15 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	  
+	<body>
+		<div id="view-trivia-end" class="view-section text-center" layout:fragment="page-content">
+            <h1 class="display-4 fw-bold text-light mb-4" th:text="#{game.end.section.title}"></h1>
+            <p class="text-muted-custom mb-5 fs-5" th:text="#{game.end.section.resume(${session.partida.puntos})}"></p>
+            <a th:href="@{/web/game/guest}" class="btn btn-accent btn-lg px-5 py-3 me-3" th:text="#{play.again.btn}"></a>
+        </div>
+	</body>
+</html>

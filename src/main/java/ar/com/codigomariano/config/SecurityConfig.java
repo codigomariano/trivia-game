@@ -53,7 +53,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/css/**", "/fonts/**", "/images/**", "/js/**").permitAll()
 				.requestMatchers(BaseWebController.ROOT_URL).permitAll()
-				.requestMatchers(HomeController.HOME_URL, GameController.GAME_AS_GUEST_URL, GameController.QUESTION_URL).permitAll()
+				.requestMatchers(HomeController.HOME_URL, GameController.GAME_AS_GUEST_URL, GameController.QUESTION_URL, GameController.ANSWER_URL).permitAll()
 				.requestMatchers(LoginController.SIGN_IN_URL, LoginController.LOGIN_URL).permitAll()
 				.requestMatchers(RegistracionController.SIGN_UP_URL, RegistracionController.REGISTRACION_URL).permitAll()
 				.requestMatchers(AdminController.ADMIN_URL + "/**").hasAnyRole(Rol.ADMINISTRADOR.name(), Rol.ARBITRO.name())
