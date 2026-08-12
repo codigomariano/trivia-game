@@ -1,5 +1,6 @@
 package ar.com.codigomariano.domain.preguntas;
 
+import ar.com.codigomariano.dtos.DesafioDTO;
 import ar.com.codigomariano.enums.Categoria;
 import ar.com.codigomariano.enums.OpcionBinaria;
 import ar.com.codigomariano.enums.PreguntaType;
@@ -45,6 +46,14 @@ public class PreguntaBinaria extends Pregunta<PreguntaBinariaForm> {
 	@Override
 	public PreguntaType getType() {
 		return PreguntaType.BINARIA;
+	}
+	
+	@Override
+	protected void setOpcionesParaDesafio(DesafioDTO desafio) {
+		desafio.setOpciones(new String[] {OpcionBinaria.V.displayText(), OpcionBinaria.F.displayText()});
+		
+		OpcionBinaria correcta = OpcionBinaria.getFromValue(this.correcta);
+		desafio.setIndexCorrecto(correcta.ordinal());
 	}
 	
 	public boolean isCorrecta() {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import ar.com.codigomariano.domain.Respuesta;
+import ar.com.codigomariano.dtos.DesafioDTO;
 import ar.com.codigomariano.enums.Categoria;
 import ar.com.codigomariano.enums.OpcionMultiple;
 import ar.com.codigomariano.enums.PreguntaType;
@@ -54,6 +55,22 @@ public class PreguntaMultiple extends Pregunta<PreguntaMultipleForm> {
 	public PreguntaType getType() {
 		return PreguntaType.MULTIPLE;
 	}
+	
+	@Override
+	protected void setOpcionesParaDesafio(DesafioDTO desafio) {
+		String[] opciones = new String[OpcionMultiple.values().length];
+		int indexCorrecta = -1;
+		
+		for (Respuesta respuesta : this.respuestas) {
+			OpcionMultiple op = respuesta.getOpcion();
+			opciones[op.ordinal()] = respuesta.getTexto();
+			if(respuesta.getCorrecta()) indexCorrecta = op.ordinal();
+		}
+		
+		desafio.setOpciones(opciones);
+		desafio.setIndexCorrecto(indexCorrecta);
+	}
+	
 	
 	public void updateRespuestas(RespuestaForm[] respuestas) {
 		for (OpcionMultiple opcion : OpcionMultiple.values()) {

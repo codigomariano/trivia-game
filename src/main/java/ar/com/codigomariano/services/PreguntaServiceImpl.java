@@ -1,8 +1,11 @@
 package ar.com.codigomariano.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import ar.com.codigomariano.domain.preguntas.Pregunta;
+import ar.com.codigomariano.dtos.DesafioDTO;
 import ar.com.codigomariano.forms.DeletionForm;
 import ar.com.codigomariano.forms.PreguntaForm;
 import ar.com.codigomariano.repositories.PreguntaRepository;
@@ -20,5 +23,16 @@ public abstract class PreguntaServiceImpl<T extends Pregunta<F>, F extends Pregu
 			pregunta.setEliminada(Boolean.TRUE);
 			guardar(pregunta);
 		}
+	}
+	
+	@Override
+	public List<DesafioDTO> listarDesafios() {
+		List<T> preguntas = repository().findByEliminada(Boolean.FALSE);
+		
+		
+		return preguntas
+				.stream()
+				.map(p -> p.asDesafio())
+				.collect(Collectors.toList());
 	}
 }

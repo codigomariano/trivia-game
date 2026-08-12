@@ -1,9 +1,16 @@
 package ar.com.codigomariano.controllers;
 
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import ar.com.codigomariano.dtos.DesafioDTO;
+import ar.com.codigomariano.services.GameService;
 import ar.com.codigomariano.session.Partida;
 import jakarta.servlet.http.HttpSession;
 
@@ -13,18 +20,33 @@ public class GameController extends BaseWebController {
 	public static final String GAME_AS_GUEST_URL = GAME_URL +  "/guest";
 	private static final String GAME_WELCOME_VIEW = "/game/welcome";
 	
+	@Autowired
+	private GameService service;
+	
 	@Value("${preguntas.por.partida}")
 	private Integer preguntasPorPartida;
 	
 	@GetMapping(value = GAME_URL)
 	public String game(HttpSession session) {
-		session.setAttribute(INFO_ATTRIBUTE, new Partida());
+		iniciarPartida(session);
 		return GAME_WELCOME_VIEW;
 	}
 	
 	@GetMapping(value = GAME_AS_GUEST_URL)
 	public String gameAsGuest(HttpSession session) {	
-		session.setAttribute(INFO_ATTRIBUTE, new Partida());
+		iniciarPartida(session);
 		return GAME_WELCOME_VIEW;
+	}
+	
+	
+	/**
+	 * Inicia la partida obteniendo la cantidad máxima de desafíos configurada
+	 * y almacenándolos en la sesión para que puedan ser utilizados por la
+	 * capa de presentación.
+	 */
+	private void iniciarPartida(HttpSession session) {
+		List<DesafioDTO> desafios = this.service.obtenerDesafiosParaPartida(this.preguntasPorPartida);
+		
+		session.setAttribute(PARTIDA, new Partida(desafios));
 	}
 }

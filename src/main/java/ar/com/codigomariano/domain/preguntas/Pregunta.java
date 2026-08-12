@@ -1,6 +1,7 @@
 package ar.com.codigomariano.domain.preguntas;
 
 import ar.com.codigomariano.domain.Editable;
+import ar.com.codigomariano.dtos.DesafioDTO;
 import ar.com.codigomariano.enums.Categoria;
 import ar.com.codigomariano.enums.PreguntaType;
 import ar.com.codigomariano.forms.PreguntaForm;
@@ -85,6 +86,20 @@ public abstract class Pregunta<F extends PreguntaForm> extends Editable<F>{
 		setTexto(form.getPregunta().trim());
 		setPuntos(form.getPuntos());
 	}
+	
+	public DesafioDTO asDesafio() {
+		DesafioDTO desafio = new DesafioDTO();
+		desafio.setId(getId());
+		desafio.setCategoria(getCategoria());
+		desafio.setTexto(getTexto());
+		desafio.setPuntos(getPuntos());
+		setOpcionesParaDesafio(desafio);
+
+		return desafio;
+	}
+	
+	
+	protected abstract void setOpcionesParaDesafio(DesafioDTO desafio);
 	
 	
 	public String getCodigo() {

@@ -11,7 +11,7 @@ public abstract class BaseWebController {
 	public static final String BASE_URL = "/web";
 	protected final static String ID_PARAMETER = "id";
 	
-	protected final static String INFO_ATTRIBUTE = "info";
+	protected final static String PARTIDA = "partida";
 	protected final static String FORM_ATTRIBUTE = "form";
 	protected final static String LIST_ATTRIBUTE = "listado";
 
