@@ -1,0 +1,47 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	  
+	<body>
+		<div id="view-game" class="view-section" layout:fragment="page-content">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="glass-card p-5 text-center position-relative">
+                        <!-- Cabecera de la pregunta -->
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <span th:class="'badge fs-6 bg-' + ${desafio.categoria}" th:text="${desafio.categoria}"></span>
+                            <span class="badge bg-warning text-dark fs-6">
+                            	<i class="fa-solid fa-star"></i>
+                            	<label th:text="#{question.points(${desafio.puntos})}"></label>
+                            </span>
+                        </div>
+                        
+                        <!-- Pregunta -->
+                        <h2 class="mb-5 text-light" th:text="${desafio.texto}"></h2>
+                        
+                        <!-- Opciones -->
+                        <div class="d-grid gap-3 mb-5">
+	                        <div th:each="opt, stat : ${desafio.opciones}" class="input-group mb-3 glass-input-group">
+		                        <div class="input-group-text glass-addon">
+		                            <input th:id="${'opt_' + opt}" name="respuestaElegida" type="radio" th:value="${stat.index}" class="form-check-input mt-0">
+		                        </div>
+		                        <input th:id="${'opt_' + opt + '_text'}" type="text" th:value="${opt}" class="btn btn-outline-light btn-lg answer-btn" readonly="readonly">
+	                    	</div>
+                        </div>
+                        
+                        <!-- Botón Siguiente -->
+                        <div class="text-end">
+                            <a th:href="@{/web/game/question}" class="btn btn-accent px-4 py-2">
+                            	<span th:text="#{question.next}"></span>
+                            	<i class="fa-solid fa-angles-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>

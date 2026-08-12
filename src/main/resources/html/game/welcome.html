@@ -10,7 +10,7 @@
 	      	<h1 class="display-4 fw-bold text-light mb-4" th:text="#{game.init.question}"></h1>
             <p sec:authorize="isAuthenticated()" sec:authentication="email" class="text-muted-custom mb-5 fs-5"></p>
             <p class="text-muted-custom mb-5 fs-5" th:text="#{game.init.welcome.points(${session.partida.puntos})}"></p>
-            <a href="" class="btn btn-accent btn-lg px-5 py-3 me-3" th:text="#{play.now.btn}"></a>
+            <a th:href="@{/web/game/question}" class="btn btn-accent btn-lg px-5 py-3 me-3" th:text="#{play.now.btn}"></a>
 	 	</div>	
 	</body>
 </html>

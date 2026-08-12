@@ -14,6 +14,7 @@ public abstract class BaseWebController {
 	protected final static String PARTIDA = "partida";
 	protected final static String FORM_ATTRIBUTE = "form";
 	protected final static String LIST_ATTRIBUTE = "listado";
+	protected final static String DESAFIO_ATTRIBUTE = "desafio";
 
 	
 	/**
