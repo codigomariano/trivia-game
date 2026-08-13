@@ -31,13 +31,10 @@ public class GameServiceImpl implements GameService {
 		while(desafios.size() < cantMaxima && hayPreguntas) {
 			PreguntaType tipoDesafio = Utils.obtenerTipoPregunta();
 			
-			switch (tipoDesafio) {
-			case PreguntaType.BINARIA:
-				sumarDesafioDesde(desafiosBinarios, desafios);
-				break;
-			case PreguntaType.MULTIPLE:
-				sumarDesafioDesde(desafiosMultiples, desafios);
-				break;
+			if(PreguntaType.BINARIA.equals(tipoDesafio)) {
+				sumarDesafioDesde(desafiosBinarios, desafios);				
+			} else if (PreguntaType.MULTIPLE.equals(tipoDesafio)) {
+				sumarDesafioDesde(desafiosMultiples, desafios);				
 			}
 			
 			hayPreguntas = !desafiosBinarios.isEmpty() || !desafiosMultiples.isEmpty();
