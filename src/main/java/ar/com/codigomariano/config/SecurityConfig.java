@@ -36,6 +36,7 @@ public class SecurityConfig {
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(request -> request
 													.requestMatchers(LoginAPI.LOGIN_URL, UsuarioAPI.REGISTER_USERS_URL).permitAll()
+													.requestMatchers(UsuarioAPI.LIST_USERS_URL).hasRole(Rol.ADMINISTRADOR.name())
 													.anyRequest().authenticated())
 				.csrf(csrf -> csrf.disable())
 				.addFilterAfter(this.jwtFilter, BasicAuthenticationFilter.class)
